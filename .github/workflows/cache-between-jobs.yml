@@ -2,8 +2,6 @@ name: "dev-build"
 
 on:
   push:
-    branches:
-      - AAE-7986-dev-caching
 
 env:
   CACHE_PATH: node-cache-${{ github.sha }}
