@@ -27,6 +27,7 @@ jobs:
       - run: echo "test" > /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: ls -lh /tmp/
+      - run: ls -lh /tmp/${CACHE_PATH}/
 
   getting-cache:
     runs-on: ubuntu-22.04
