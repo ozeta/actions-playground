@@ -6,7 +6,9 @@ on:
   push:
 
 env:
-  CACHE_PATH: node-cache-${{ github.sha }}
+  CACHE_PATH: node-cache-${{ github.ref_name }}
+  #CACHE_PATH: node-cache-${{ github.sha }}
+  COMMIT_SHA: ${{ github.sha }}
   RESTORE_KEY: ${{ github.workspace }}-
   CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}
 jobs:
@@ -23,9 +25,9 @@ jobs:
             ${{ env.RESTORE_KEY }}
             
       - run: mkdir -p /tmp/${CACHE_PATH}
-      - run: touch /tmp/${CACHE_PATH}/tempfile
-      - run: echo "test" > /tmp/${CACHE_PATH}/tempfile
-      - run: cat /tmp/${CACHE_PATH}/tempfile
+      - run: touch /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: echo "test" > /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: ls -lh /tmp/
 
   getting-cache:
@@ -42,7 +44,7 @@ jobs:
             ${{ env.RESTORE_KEY }}
             
       - run: ls -lh /tmp/
-      - run: cat /tmp/${CACHE_PATH}/tempfile
+      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
 
   base-with-checkout:
     needs: getting-cache
@@ -63,4 +65,4 @@ jobs:
         with:
           fetch-depth: 2
       - run: ls -lh /tmp/
-      - run: cat /tmp/${CACHE_PATH}/tempfile
+      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
