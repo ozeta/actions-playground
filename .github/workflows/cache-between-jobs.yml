@@ -6,6 +6,17 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+  
 env:
   CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
   COMMIT_SHA: ${{ github.sha }}
