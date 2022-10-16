@@ -26,7 +26,6 @@ jobs:
       - run: touch /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: echo "test" > /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: ls -lh /tmp/
       - run: ls -lh /tmp/${CACHE_PATH}/
 
   getting-cache:
@@ -41,7 +40,7 @@ jobs:
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
-      - run: ls -lh /tmp/
+      - run: ls -lh /tmp/${CACHE_PATH}/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
             echo "file: $i";
@@ -66,7 +65,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
-      - run: ls -lh /tmp/
+      - run: ls -lh /tmp/${CACHE_PATH}/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
             echo "file: $i";
