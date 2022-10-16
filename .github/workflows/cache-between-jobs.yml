@@ -29,7 +29,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 2      
+          fetch-depth: 2
       - name: Cache tmp folder
         id: cache-tmp
         uses: actions/cache@v3
@@ -50,6 +50,10 @@ jobs:
     runs-on: ubuntu-22.04
     needs: base
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2    
       - run: pwd
       - run: ls
       - name: Cache tmp folder
@@ -91,3 +95,21 @@ jobs:
             cat $i;
           done
       - run: echo "done"
+
+  cat-file-with-cache:
+    needs: base-with-checkout
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2    
+      - name: Cache tmp folder
+        id: cache-tmp
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.CACHE_PATH }}
+          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
+          restore-keys: |
+            ${{ env.RESTORE_KEY }}-${{ hashFiles('README.md') }}
+      - run: cat ${CACHE_PATH}/tempfile-${COMMIT_SHA}
