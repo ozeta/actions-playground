@@ -73,3 +73,4 @@ jobs:
             echo "file: $i";
             cat $i;
           done
+      - run: echo "done"
