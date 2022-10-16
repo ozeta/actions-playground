@@ -25,11 +25,11 @@ jobs:
           restore-keys: |
             ${{ env.RESTORE_KEY }}
             
-      - run: mkdir -p /tmp/${CACHE_PATH}
-      - run: touch /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: echo "test" > /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: ls -lh /tmp/${CACHE_PATH}/
+      - run: mkdir -p ${CACHE_PATH}
+      - run: touch ${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: echo "test" > ${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: cat ${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: ls -lh ${CACHE_PATH}/
 
   getting-cache:
     runs-on: ubuntu-22.04
@@ -43,7 +43,7 @@ jobs:
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
-      - run: ls -lh /tmp/${CACHE_PATH}/
+      - run: ls -lh ${CACHE_PATH}/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
             echo "file: $i";
@@ -68,7 +68,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
-      - run: ls -lh /tmp/${CACHE_PATH}/
+      - run: ls -lh ${CACHE_PATH}/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
             echo "file: $i";
