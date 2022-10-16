@@ -4,7 +4,7 @@ on:
   push:
 
 env:
-  CACHE_PATH: node-cache-${{ github.ref_name }}
+  CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
   #CACHE_PATH: node-cache-${{ github.sha }}
   COMMIT_SHA: ${{ github.sha }}
   RESTORE_KEY: ${{ github.workspace }}-
@@ -17,7 +17,7 @@ jobs:
         id: cache-tmp
         uses: actions/cache@v3
         with:
-          path: /tmp/${{ env.CACHE_PATH }}
+          path: ${{ env.CACHE_PATH }}
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
@@ -25,7 +25,10 @@ jobs:
       - run: mkdir -p /tmp/${CACHE_PATH}
       - run: touch /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: echo "test" > /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: |
+          for i in /tmp/${CACHE_PATH}/tempfile-*: do
+            cat $i;
+          done
       - run: ls -lh /tmp/
       - run: ls -lh /tmp/${CACHE_PATH}/
 
@@ -37,7 +40,7 @@ jobs:
         id: cache-tmp
         uses: actions/cache@v3
         with:
-          path: /tmp/${{ env.CACHE_PATH }}
+          path: ${{ env.CACHE_PATH }}
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
@@ -54,7 +57,7 @@ jobs:
         id: cache-tmp
         uses: actions/cache@v3
         with:
-          path: /tmp/${{ env.CACHE_PATH }}
+          path: ${{ env.CACHE_PATH }}
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
