@@ -44,6 +44,7 @@ jobs:
       - run: ls -lh /tmp/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
+            echo "file: $i";
             cat $i;
           done
 
@@ -68,5 +69,6 @@ jobs:
       - run: ls -lh /tmp/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
+            echo "file: $i";
             cat $i;
           done
