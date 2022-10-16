@@ -43,7 +43,7 @@ jobs:
             ${{ env.RESTORE_KEY }}
       - run: ls -lh /tmp/
       - run: |
-          for i in /tmp/${CACHE_PATH}/tempfile-*; do
+          for i in ${CACHE_PATH}/tempfile-*; do
             cat $i;
           done
 
@@ -67,6 +67,6 @@ jobs:
           fetch-depth: 2
       - run: ls -lh /tmp/
       - run: |
-          for i in /tmp/${CACHE_PATH}/tempfile-*; do
+          for i in ${CACHE_PATH}/tempfile-*; do
             cat $i;
           done
