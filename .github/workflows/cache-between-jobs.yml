@@ -26,7 +26,7 @@ jobs:
       - run: touch /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: echo "test" > /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: |
-          for i in /tmp/${CACHE_PATH}/tempfile-*: do
+          for i in /tmp/${CACHE_PATH}/tempfile-*; do
             cat $i;
           done
       - run: ls -lh /tmp/
