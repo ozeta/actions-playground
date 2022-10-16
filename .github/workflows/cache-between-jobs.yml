@@ -41,12 +41,11 @@ jobs:
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
-            
       - run: ls -lh /tmp/
       - run: |
-        for i in /tmp/${CACHE_PATH}/tempfile-*; do
-          cat $i;
-        done
+          for i in /tmp/${CACHE_PATH}/tempfile-*; do
+            cat $i;
+          done
 
   base-with-checkout:
     needs: getting-cache
