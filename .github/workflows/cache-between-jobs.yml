@@ -46,6 +46,8 @@ jobs:
     runs-on: ubuntu-22.04
     needs: base
     steps:
+      - run: pwd
+      - run: ls
       - name: Cache tmp folder
         id: cache-tmp
         uses: actions/cache@v3
@@ -66,6 +68,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2    
       - name: Cache tmp folder
         id: cache-tmp
         uses: actions/cache@v3
@@ -74,10 +80,6 @@ jobs:
           key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}-${{ hashFiles('README.md') }}
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
       - run: ls -lh ${CACHE_PATH}/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
