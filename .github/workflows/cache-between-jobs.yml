@@ -10,7 +10,7 @@ env:
   CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
   COMMIT_SHA: ${{ github.sha }}
   RESTORE_KEY: ${{ github.workspace }}-
-  CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ hashFiles('README.md') }}
+  CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}
 jobs:
   base:
     runs-on: ubuntu-22.04
@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.CACHE_PATH }}
-          key: ${{ env.CACHE_KEY }}
+          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
       - run: ls -lh /tmp
@@ -40,7 +40,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.CACHE_PATH }}
-          key: ${{ env.CACHE_KEY }}
+          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
       - run: ls -lh ${CACHE_PATH}/
@@ -60,7 +60,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.CACHE_PATH }}
-          key: ${{ env.CACHE_KEY }}
+          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
       - name: Checkout repository
