@@ -26,6 +26,10 @@ jobs:
   base:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2      
       - name: Cache tmp folder
         id: cache-tmp
         uses: actions/cache@v3
