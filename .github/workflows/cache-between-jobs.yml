@@ -8,10 +8,9 @@ on:
   workflow_dispatch:
 env:
   CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
-  #CACHE_PATH: node-cache-${{ github.sha }}
   COMMIT_SHA: ${{ github.sha }}
   RESTORE_KEY: ${{ github.workspace }}-
-  CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}
+  CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ hashFiles('README.md') }}
 jobs:
   base:
     runs-on: ubuntu-22.04
@@ -64,7 +63,6 @@ jobs:
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
-            
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
