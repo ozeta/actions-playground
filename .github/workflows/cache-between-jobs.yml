@@ -24,7 +24,8 @@ jobs:
           key: ${{ env.CACHE_KEY }}
           restore-keys: |
             ${{ env.RESTORE_KEY }}
-            
+      - run: ls -lh /tmp
+      - run: ls -lh ${CACHE_PATH}/ || true
       - run: mkdir -p ${CACHE_PATH}
       - run: touch ${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: echo "test" > ${CACHE_PATH}/tempfile-${COMMIT_SHA}
