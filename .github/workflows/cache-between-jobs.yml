@@ -37,7 +37,7 @@ jobs:
           path: ${{ env.CACHE_PATH }}
           key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
           restore-keys: |
-            ${{ env.RESTORE_KEY }}-${{ hashFiles('README.md') }}
+            ${{ env.RESTORE_KEY }}-
       - run: ls -lh /tmp
       - run: ls -lh ${CACHE_PATH}/ || true
       - run: mkdir -p ${CACHE_PATH}
@@ -63,7 +63,7 @@ jobs:
           path: ${{ env.CACHE_PATH }}
           key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
           restore-keys: |
-            ${{ env.RESTORE_KEY }}-${{ hashFiles('README.md') }}
+            ${{ env.RESTORE_KEY }}-
       - run: ls -lh ${CACHE_PATH}/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
@@ -87,7 +87,7 @@ jobs:
           path: ${{ env.CACHE_PATH }}
           key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
           restore-keys: |
-            ${{ env.RESTORE_KEY }}-${{ hashFiles('README.md') }}
+            ${{ env.RESTORE_KEY }}-
       - run: ls -lh ${CACHE_PATH}/
       - run: |
           for i in ${CACHE_PATH}/tempfile-*; do
