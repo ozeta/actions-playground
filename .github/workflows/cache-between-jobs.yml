@@ -25,10 +25,7 @@ jobs:
       - run: mkdir -p /tmp/${CACHE_PATH}
       - run: touch /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: echo "test" > /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: |
-          for i in /tmp/${CACHE_PATH}/tempfile-*; do
-            cat $i;
-          done
+      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: ls -lh /tmp/
       - run: ls -lh /tmp/${CACHE_PATH}/
 
@@ -46,7 +43,10 @@ jobs:
             ${{ env.RESTORE_KEY }}
             
       - run: ls -lh /tmp/
-      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: |
+        for i in /tmp/${CACHE_PATH}/tempfile-*; do
+          cat $i;
+        done
 
   base-with-checkout:
     needs: getting-cache
@@ -67,4 +67,7 @@ jobs:
         with:
           fetch-depth: 2
       - run: ls -lh /tmp/
-      - run: cat /tmp/${CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: |
+        for i in /tmp/${CACHE_PATH}/tempfile-*; do
+          cat $i;
+        done
