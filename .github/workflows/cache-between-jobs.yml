@@ -16,6 +16,7 @@ on:
         - info
         - warning
         - debug
+        - error
   
 env:
   JOB_CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
