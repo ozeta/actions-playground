@@ -18,7 +18,7 @@ on:
         - debug
   
 env:
-  CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
+  JOB_CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
   COMMIT_SHA: ${{ github.sha }}
   RESTORE_KEY: ${{ github.workspace }}-${{ github.ref_name }}
   CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}
@@ -34,39 +34,35 @@ jobs:
         id: cache-tmp
         uses: actions/cache@v3
         with:
-          path: ${{ env.CACHE_PATH }}
-          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
+          path: ${{ env.JOB_CACHE_PATH }}
+          key: ${{ env.CACHE_KEY }}-${COMMIT_SHA}
           restore-keys: |
             ${{ env.RESTORE_KEY }}-
       - run: ls -lh /tmp
-      - run: ls -lh ${CACHE_PATH}/ || true
-      - run: mkdir -p ${CACHE_PATH}
-      - run: touch ${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: echo "test" > ${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: cat ${CACHE_PATH}/tempfile-${COMMIT_SHA}
-      - run: ls -lh ${CACHE_PATH}/
+      - run: ls -lh ${JOB_CACHE_PATH}/ || true
+      - run: mkdir -p ${JOB_CACHE_PATH}
+      - run: touch ${JOB_CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: echo "test" > ${JOB_CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: cat ${JOB_CACHE_PATH}/tempfile-${COMMIT_SHA}
+      - run: ls -lh ${JOB_CACHE_PATH}/
 
-  getting-cache:
+  getting-cache-without-checkout:
     runs-on: ubuntu-22.04
     needs: base
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2    
+    steps: 
       - run: pwd
       - run: ls
       - name: Cache tmp folder
         id: cache-tmp
         uses: actions/cache@v3
         with:
-          path: ${{ env.CACHE_PATH }}
-          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
+          path: ${{ env.JOB_CACHE_PATH }}
+          key: ${{ env.CACHE_KEY }}-${COMMIT_SHA}
           restore-keys: |
             ${{ env.RESTORE_KEY }}-
-      - run: ls -lh ${CACHE_PATH}/
+      - run: ls -lh ${JOB_CACHE_PATH}/
       - run: |
-          for i in ${CACHE_PATH}/tempfile-*; do
+          for i in ${JOB_CACHE_PATH}/tempfile-*; do
             echo "file: $i";
             cat $i;
           done
@@ -84,13 +80,13 @@ jobs:
         id: cache-tmp
         uses: actions/cache@v3
         with:
-          path: ${{ env.CACHE_PATH }}
-          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
+          path: ${{ env.JOB_CACHE_PATH }}
+          key: ${{ env.CACHE_KEY }}-${COMMIT_SHA}
           restore-keys: |
             ${{ env.RESTORE_KEY }}-
-      - run: ls -lh ${CACHE_PATH}/
+      - run: ls -lh ${JOB_CACHE_PATH}/
       - run: |
-          for i in ${CACHE_PATH}/tempfile-*; do
+          for i in ${JOB_CACHE_PATH}/tempfile-*; do
             echo "file: $i";
             cat $i;
           done
@@ -108,8 +104,8 @@ jobs:
         id: cache-tmp
         uses: actions/cache@v3
         with:
-          path: ${{ env.CACHE_PATH }}
-          key: ${{ env.CACHE_KEY }}-${{ hashFiles('README.md') }}
+          path: ${{ env.JOB_CACHE_PATH }}
+          key: ${{ env.CACHE_KEY }}-${COMMIT_SHA}
           restore-keys: |
-            ${{ env.RESTORE_KEY }}-${{ hashFiles('README.md') }}
-      - run: cat ${CACHE_PATH}/tempfile-${COMMIT_SHA}
+            ${{ env.RESTORE_KEY }}-${COMMIT_SHA}
+      - run: cat ${JOB_CACHE_PATH}/tempfile-${COMMIT_SHA}
