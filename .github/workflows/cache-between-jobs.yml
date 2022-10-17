@@ -61,6 +61,8 @@ jobs:
           restore-keys: |
             ${{ env.RESTORE_KEY }}-
       - run: ls -lh ${JOB_CACHE_PATH}/
+      - run: echo "test" > ${JOB_CACHE_PATH}/tempfile-${COMMIT_SHA}-1
+      - run: echo "test 2" >> ${JOB_CACHE_PATH}/tempfile-${COMMIT_SHA}
       - run: |
           for i in ${JOB_CACHE_PATH}/tempfile-*; do
             echo "file: $i";
@@ -68,7 +70,7 @@ jobs:
           done
 
   base-with-checkout:
-    needs: getting-cache
+    needs: getting-cache-without-checkout
     runs-on: ubuntu-22.04
 
     steps:
