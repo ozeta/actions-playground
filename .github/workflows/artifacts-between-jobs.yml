@@ -47,6 +47,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
+          path: artifacts/
           name: my-artifact
       - run: ls -R
       - run: cat artifacts/*
