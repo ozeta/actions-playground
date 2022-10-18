@@ -5,4 +5,5 @@
 [![artifacts](https://github.com/ozeta/actions-playground/actions/workflows/artifacts-between-jobs.yml/badge.svg)](https://github.com/ozeta/actions-playground/actions/workflows/artifacts-between-jobs.yml)
 
 # features
-. caching
+- caching at job start
+- artifact between jobs

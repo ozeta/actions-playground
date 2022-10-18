@@ -11,7 +11,7 @@ on:
         description: 'Log level'
         required: true
         default: 'warning'
-        type: choice
+        type: ch@oice
         options:
         - info
         - warning
