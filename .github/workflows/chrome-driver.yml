@@ -22,10 +22,5 @@ jobs:
   stage0:
     runs-on: ubuntu-22.04
     steps:
-      - uses: abhi1693/setup-browser@v0.3.4
-        with:
-          browser: chrome
-          version: latest
-      
-
-      - run: /opt/hostedtoolcache/chromium/latest/x64/chrome --version      
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome --version 
