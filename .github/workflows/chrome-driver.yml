@@ -28,4 +28,4 @@ jobs:
           version: latest
       
 
-      - run: ${{ steps.browser.outputs.binary }} --version      
+      - run: /opt/hostedtoolcache/chromium/latest/x64/chrome --version      
