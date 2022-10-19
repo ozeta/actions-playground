@@ -11,7 +11,7 @@ on:
         description: 'Log level'
         required: true
         default: 'warning'
-        type: ch@oice
+        type: choice
         options:
         - info
         - warning
@@ -26,3 +26,6 @@ jobs:
         with:
           browser: chrome
           version: latest
+      
+
+      - run: ${{ steps.browser.outputs.binary }} --version      
