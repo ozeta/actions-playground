@@ -1,0 +1,28 @@
+name: "chrome driver"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: ch@oice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  stage0:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: abhi1693/setup-browser@v0.3.4
+        with:
+          browser: chrome
+          version: latest
