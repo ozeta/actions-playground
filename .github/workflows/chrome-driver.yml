@@ -2,9 +2,8 @@ name: "chrome driver"
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "node-build" ]
+
   workflow_dispatch:
     inputs:
       logLevel:
@@ -23,6 +22,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: browser-actions/setup-chrome@latest
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2   
       - run: chrome --version 
       - name: install NPM
         uses: actions/setup-node@v3
