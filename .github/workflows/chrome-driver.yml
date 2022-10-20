@@ -20,9 +20,6 @@ on:
 jobs:
   stage0:
     runs-on: ubuntu-22.04
-    container:
-      image: selenium/standalone-chrome
-
     steps:
       # - uses: browser-actions/setup-chrome@latest
       - name: Checkout repository
