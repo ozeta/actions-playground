@@ -35,4 +35,4 @@ jobs:
             cd example; 
             npm install selenium-webdriver
       - run: echo $PATH
-      - run: SELENIUM_BROWSER=chrome node example/google_search.js
+      - run: node example/google_search.js
