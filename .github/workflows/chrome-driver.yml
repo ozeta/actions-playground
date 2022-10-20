@@ -32,9 +32,7 @@ jobs:
         with:
           node-version: 14
       - run: |
-            ls -R;
             cd example; 
             npm install selenium-webdriver
-      - run: | 
-            cd example; 
-            SELENIUM_BROWSER=chrome node google_search.js
+      - run: echo $PATH
+      - run: SELENIUM_BROWSER=chrome node example/google_search.js
