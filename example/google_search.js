@@ -16,6 +16,7 @@ const { elementTextIs } = require('selenium-webdriver/lib/until');
     await driver.get('https://www.google.com/ncr');
     await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
     await driver.wait(until.titleContains('webdriver'), 1000);
+    console.log("ok?");
   } catch (error) {
     await driver.quit();
     console.log(error);
