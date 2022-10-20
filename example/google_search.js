@@ -2,7 +2,7 @@ const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
 const { elementTextIs } = require('selenium-webdriver/lib/until');
 
 (async function example() {
-  let driver = await new Builder().forBrowser(Browser.CHROMIUM).build();
+  let driver = await new Builder().forBrowser(Browser.CHROME).build();
   try {
     await driver.get('https://www.google.com/ncr');
     await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
