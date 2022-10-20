@@ -24,3 +24,8 @@ jobs:
     steps:
       - uses: browser-actions/setup-chrome@latest
       - run: chrome --version 
+      - name: install NPM
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - run: node example/google_search
