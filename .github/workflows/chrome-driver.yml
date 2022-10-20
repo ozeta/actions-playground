@@ -29,6 +29,7 @@ jobs:
         with:
           node-version: 14
       - run: |
+            ls -R;
             cd example; 
             npm install selenium-webdriver
       - run: | 
