@@ -1,16 +1,9 @@
 name: Test (single)
 
 on:
-  workflow_dispatch:
-    inputs:
-      browser:
-        type: choice
-        description: Which browser to test
-        required: true
-        options:
-          - chrome
-          - firefox
-          - edge
+  push:
+    branches: [ "node-build-dispatch" ]
+
 
 jobs:
   test:
@@ -22,7 +15,7 @@ jobs:
 
     services:
       selenium:
-        image: selenium/standalone-${{ github.event.inputs.browser }}
+        image: selenium/standalone-chrome
 
     steps:
       - uses: actions/checkout@v2
@@ -33,7 +26,7 @@ jobs:
       - run: npm ci
       - run: npm run test
         env:
-          BROWSER: ${{ github.event.inputs.browser }}
+          BROWSER: chrome
       - uses: actions/upload-artifact@v2
         if: always()
         with:
