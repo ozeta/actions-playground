@@ -37,4 +37,4 @@ jobs:
             npm install selenium-webdriver
       - run: | 
             cd example; 
-            node example/google_search
+            node google_search.js
