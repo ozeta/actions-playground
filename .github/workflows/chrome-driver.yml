@@ -1,44 +1,41 @@
-name: "chrome driver"
+name: Test (single)
 
 on:
-  push:
-    branches: [ "node-build" ]
-
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
+      browser:
         type: choice
+        description: Which browser to test
+        required: true
         options:
-        - info
-        - warning
-        - debug
-        - error
-  
+          - chrome
+          - firefox
+          - edge
+
 jobs:
-  stage0:
-    runs-on: ubuntu-22.04
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
     container:
-      image: node:14
+      image: node:16
+
     services:
       selenium:
-        image: selenium/standalone-chrome
+        image: selenium/standalone-${{ github.event.inputs.browser }}
 
     steps:
-      # - uses: browser-actions/setup-chrome@latest
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          fetch-depth: 2   
-      - run: chrome --version 
-      - name: install NPM
-        uses: actions/setup-node@v3
+          node-version: '16'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test
+        env:
+          BROWSER: ${{ github.event.inputs.browser }}
+      - uses: actions/upload-artifact@v2
+        if: always()
         with:
-          node-version: 14
-      - run: |
-            cd example; 
-            npm install selenium-webdriver
-      - run: echo $PATH
-      - run: node example/google_search.js
+          name: screenshots
+          path: screenshots/
