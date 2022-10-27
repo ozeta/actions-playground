@@ -3,30 +3,63 @@ name: "artifacts"
 
 on:
   push:
-
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
+      EVENT:
+        description: 'event_name'
+        required: false
+        default: ''
         type: choice
         options:
-        - info
-        - warning
-        - debug
-        - error
+          - pull_request
+          - push
+          - cron
+          - repository_dispatch
+          - workflow_dispatch
   
 
 jobs:
   test-action-with-cron:
     runs-on: ubuntu-latest
     env:
-      EVENT: crona
+      EVENT: cron
     steps:
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
           event_name: schedule
+      - run: echo $TRAVIS_EVENT_TYPE
+      - name: test cron 
+        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
+  test-action-with-pull-request:
+    runs-on: ubuntu-latest
+    env:
+      EVENT: pull_request
+    steps:
+      - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
+        with:
+          event_name: pull_request
+      - run: echo $TRAVIS_EVENT_TYPE
+      - name: test cron 
+        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
+  test-action-with-push:
+    runs-on: ubuntu-latest
+    env:
+      EVENT: push
+    steps:
+      - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
+        with:
+          event_name: push
+      - run: echo $TRAVIS_EVENT_TYPE
+      - name: test cron 
+        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
+  test-action-with-repository_dispatch:
+    runs-on: ubuntu-latest
+    env:
+      EVENT: repository_dispatch
+    steps:
+      - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
+        with:
+          event_name: repository_dispatch
       - run: echo $TRAVIS_EVENT_TYPE
       - name: test cron 
         run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
