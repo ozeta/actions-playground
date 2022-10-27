@@ -3,11 +3,7 @@ name: "travis-event-type-env-var"
 description: "Mimic loading of a TRAVIS_EVENT_TYPE env var"
 
 inputs:
-  ignore_regex:
-    description: "Bash regex to ignore certain lines"
-    required: false
-    default: ^$
-  event_n:
+  event_name:
     description: "override github.event_name"
     required: false
     default: ${{ github.event_name }}
@@ -18,13 +14,13 @@ runs:
       run: |
         EVENT_TYPE=""
 
-        if [ "schedule" == "${{ input.event_n }}" ]; then 
+        if [ "schedule" == "${{ inputs.event_name }}" ]; then 
             EVENT_TYPE="cron"; 
-        elif [ "pull_request" == "${{ input.event_n }}" ]; then
+        elif [ "pull_request" == "${{ inputs.event_name }}" ]; then
             EVENT_TYPE="pull_request"; 
-        elif [ "push" == "${{ input.event_n }}" ]; then
+        elif [ "push" == "${{ inputs.event_name }}" ]; then
             EVENT_TYPE="pull_request"; 
-        elif [ "repository_dispatch" == "${{ input.event_n }}" ]; then
+        elif [ "repository_dispatch" == "${{ inputs.event_name }}" ]; then
             EVENT_TYPE="api"; 
         fi
         echo "TRAVIS_EVENT_TYPE=${EVENT_TYPE}" >> $GITHUB_ENV
