@@ -3,7 +3,7 @@ name: "artifacts"
 
 on:
   push:
-  
+
   workflow_dispatch:
     inputs:
       logLevel:
@@ -25,4 +25,9 @@ jobs:
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
           event_name: schedule
+      - run: echo $TRAVIS_EVENT_TYPE
+      - name: test cron 
+        run:  |
+          [[ "$TRAVIS_EVENT_TYPE" != "cron" ]] && exit 1
+
       
