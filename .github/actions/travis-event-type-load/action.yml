@@ -1,0 +1,27 @@
+# TRAVIS_EVENT_TYPE= Indicates how the build was triggered. One of push, pull_request, api, cron
+name: "travis-event-type-env-var"
+description: "Mimic loading of a TRAVIS_EVENT_TYPE env var"
+inputs:
+  event_name:
+    description: "override github.event_name"
+    required: false
+    default: ${{ github.event_name }}
+runs:
+  using: "composite"
+  steps:
+    - name: Parse env global
+      run: |
+        EVENT_TYPE=""
+
+        if [ "schedule" == "${{ input.event_name }}" ]; then 
+            EVENT_TYPE="cron"; 
+        elif [ "pull_request" == "${{ input.event_name }}" ]; then
+            EVENT_TYPE="pull_request"; 
+        elif [ "push" == "${{ input.event_name }}" ]; then
+            EVENT_TYPE="pull_request"; 
+        elif [ "repository_dispatch" == "${{ input.event_name }}" ]; then
+            EVENT_TYPE="api"; 
+        fi
+        echo "TRAVIS_EVENT_TYPE=${EVENT_TYPE}" >> $GITHUB_ENV
+        echo "loading TRAVIS_EVENT_TYPE=${EVENT_TYPE}"
+      shell: bash

@@ -1,0 +1,8 @@
+---
+env:
+  global:
+    - VAR1: value1
+    - VAR2: value2
+  local:
+    - VAR1=value1
+    - VAR2=value2    
