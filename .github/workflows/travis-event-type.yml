@@ -29,11 +29,4 @@ jobs:
           event_name: schedule
       - run: echo $TRAVIS_EVENT_TYPE
       - name: test cron 
-        run:  |
-          if [[ "$TRAVIS_EVENT_TYPE" == "$EVENT" ]]; then
-            echo "$TRAVIS_EVENT_TYPE";
-            echo "everything is ok";
-          else
-            echo "$TRAVIS_EVENT_TYPE";
-            echo "not equal";
-          fi
+        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
