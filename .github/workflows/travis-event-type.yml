@@ -19,8 +19,10 @@ on:
   
 
 jobs:
-  job0:
+  test-action-with-cron:
     runs-on: ubuntu-latest
+    env:
+      EVENT: crona
     steps:
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
@@ -28,7 +30,7 @@ jobs:
       - run: echo $TRAVIS_EVENT_TYPE
       - name: test cron 
         run:  |
-          if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then
+          if [[ "$TRAVIS_EVENT_TYPE" == "$EVENT" ]]; then
             echo "$TRAVIS_EVENT_TYPE";
             echo "everything is ok";
           else
