@@ -1,5 +1,5 @@
 #!/bin/bash
-foo=repoasdsitory_dispatch
+foo=repository_dispatch
 REGEX="(repository|workflow)_dispatch"
 if [[ "$foo" =~ $REGEX ]] ; then 
     echo "OK";
