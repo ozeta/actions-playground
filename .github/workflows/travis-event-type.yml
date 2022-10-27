@@ -1,12 +1,12 @@
 
-name: "artifacts"
+name: "travis-event-type-load"
 
 on:
   push:
   workflow_dispatch:
     inputs:
-      EVENT:
-        description: 'event_name'
+      ORACLE:
+        description: 'this is the oracle for the tests'
         required: false
         default: ''
         type: choice
@@ -22,25 +22,25 @@ jobs:
   test-action-with-cron:
     runs-on: ubuntu-latest
     env:
-      EVENT: cron
+      ORACLE: cron
     steps:
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
           event_name: schedule
       - run: echo $TRAVIS_EVENT_TYPE
       - name: test cron 
-        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
+        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$ORACLE" ]]; then exit 1; fi
   test-action-with-pull-request:
     runs-on: ubuntu-latest
     env:
-      EVENT: pull_request
+      ORACLE: pull_request
     steps:
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
           event_name: pull_request
       - run: echo $TRAVIS_EVENT_TYPE
       - name: test cron 
-        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
+        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$ORACLE" ]]; then exit 1; fi
   test-action-with-push:
     runs-on: ubuntu-latest
     env:
@@ -55,11 +55,11 @@ jobs:
   test-action-with-repository_dispatch:
     runs-on: ubuntu-latest
     env:
-      EVENT: api
+      ORACLE: api
     steps:
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
           event_name: repository_dispatch
       - run: echo $TRAVIS_EVENT_TYPE
       - name: test cron 
-        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$EVENT" ]]; then exit 1; fi
+        run:  if [[ "$TRAVIS_EVENT_TYPE" != "$ORACLE" ]]; then exit 1; fi
