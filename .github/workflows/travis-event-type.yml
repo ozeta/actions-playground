@@ -55,7 +55,7 @@ jobs:
   test-action-with-repository_dispatch:
     runs-on: ubuntu-latest
     env:
-      EVENT: repository_dispatch
+      EVENT: api
     steps:
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
