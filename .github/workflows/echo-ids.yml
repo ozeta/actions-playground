@@ -22,6 +22,8 @@ jobs:
   job0:
     runs-on: ubuntu-22.04
     steps:
+      - run: echo "event name -> '${{ github.event_name }}'
+      - run: echo "context -> '${{ github }}'
       - name: echo RUN id, number
         run: "echo RUN ID: '${{ github.run_id }}', NUMBER: '${{ github.run_number }}'" 
       - name: echo JOB id
