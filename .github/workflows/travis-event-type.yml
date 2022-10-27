@@ -24,7 +24,7 @@ jobs:
   job0:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions-playground/.github/actions/travis-event-type-load
+      - uses: ozeta/actions-playground/.github/actions/travis-event-type-load
         with:
           event_name: schedule
       
