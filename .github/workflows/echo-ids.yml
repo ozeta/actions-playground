@@ -28,7 +28,7 @@ jobs:
           JSON: ${{ toJSON(github) }}
       - run: echo $JOBS
         env:
-          JSON: ${{ toJSON(job) }}
+          JOBS: ${{ toJSON(job) }}
       - name: echo RUN id, number
         run: "echo RUN ID: '${{ github.run_id }}', NUMBER: '${{ github.run_number }}'" 
 
