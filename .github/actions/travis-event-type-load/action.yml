@@ -13,17 +13,15 @@ runs:
     - name: Parse env global
       run: |
         EVENT_TYPE=""
-
-        if [[ "schedule" == "${{ inputs.event_name }}" ]]; then 
+        REGEX="(repository|workflow)_dispatch"
+        if [[ "${{ inputs.event_name }}" == "schedule"  ]]; then 
             EVENT_TYPE="cron"; 
-        elif [[ "pull_request" == "${{ inputs.event_name }}" ]]; then
+        elif [[ "${{ inputs.event_name }}" == "pull_request"  ]]; then
             EVENT_TYPE="pull_request"; 
-        elif [[ "push" == "${{ inputs.event_name }}" ]]; then
+        elif [[ "${{ inputs.event_name }}" == "push"  ]]; then
             EVENT_TYPE="push";
-        elif [[ "repository_dispatch" =~ "${{ inputs.event_name }}" ]]; then
-            EVENT_TYPE="api"; 
-        elif [[ "workflow_dispatch" =~ "${{ inputs.event_name }}" ]]; then
-            EVENT_TYPE="api"; 
+        elif [[ "${{ inputs.event_name }}" =~ $REGEX ]]; then
+            EVENT_TYPE="api";
         fi
         echo "TRAVIS_EVENT_TYPE=${EVENT_TYPE}" >> $GITHUB_ENV
         echo "loading TRAVIS_EVENT_TYPE=${EVENT_TYPE}"
