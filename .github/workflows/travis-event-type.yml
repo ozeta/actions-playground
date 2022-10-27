@@ -34,5 +34,4 @@ jobs:
           else
             echo "$TRAVIS_EVENT_TYPE";
             echo "not equal";
-
-      
+          fi
