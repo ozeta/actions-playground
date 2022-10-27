@@ -26,5 +26,4 @@ jobs:
       - run: echo "context -> '${{ github }}'
       - name: echo RUN id, number
         run: "echo RUN ID: '${{ github.run_id }}', NUMBER: '${{ github.run_number }}'" 
-      - name: echo JOB id
-        run: "echo JOB ID: '${{ jobs.job_id }}'"
+
