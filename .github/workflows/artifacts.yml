@@ -32,7 +32,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           path: pre-artifacts/
-          name: my-artifact
+          name: my-artifact-${{ github.ref_name }}
       - run: ls -R
       - run: cat pre-artifacts/*
   upload:
@@ -47,7 +47,7 @@ jobs:
       - run: echo pluto > artifacts/pluto.txt
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: my-artifact-${{ github.ref_name }}
           path: artifacts/
 
   download:
@@ -57,6 +57,6 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           path: artifacts/
-          name: my-artifact
+          name: my-artifact-${{ github.ref_name }}
       - run: ls -R
       - run: cat artifacts/*
