@@ -26,6 +26,15 @@ env:
 
 
 jobs:
+  pre-upload:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          path: pre-artifacts/
+          name: my-artifact
+      - run: ls -R
+      - run: cat pre-artifacts/*
   upload:
     runs-on: ubuntu-22.04
     steps:
