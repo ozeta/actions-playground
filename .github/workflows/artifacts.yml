@@ -35,6 +35,7 @@ jobs:
       - run: ls -R
       - run: cat pre-artifacts/*
   upload:
+    needs: dry-download
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
