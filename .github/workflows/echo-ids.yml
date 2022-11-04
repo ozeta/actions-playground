@@ -24,7 +24,7 @@ env:
 
 jobs:
   job0:
-    uses: .github/workflows/reusable-workflow.yml
+    uses: ./.github/workflows/reusable-workflow.yml
     with:
       image_name: pippo
       tag: pippo1
