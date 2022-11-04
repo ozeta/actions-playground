@@ -30,6 +30,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: debug
+        run: git tag --sort=-creatordate | head -n 1
+      - name: debug
+        run: git rev-list -n 1 $(git tag --sort=-creatordate | head -n 1)
       - name: get tag short sha
         id: sha_out
         run: | 
