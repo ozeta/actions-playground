@@ -21,5 +21,9 @@ runs:
       shell: bash
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
-    - run: echo "ciao"
+    - run: echo "ciao" | tee ciao.txt
       shell: bash
+    - uses: actions/upload-artifact@v3
+      with:
+        name: ciao
+        path: ciao.txt      
