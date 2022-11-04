@@ -24,12 +24,12 @@ env:
 
 jobs:
   job0:
-    uses: .github/workflows/reusable-worflow.yml
+    uses: .github/workflows/reusable-workflow.yml
     with:
       image_name: pippo
       tag: pippo1
   job1:
-    uses: .github/workflows/reusable-worflow.yml
+    uses: ./.github/workflows/reusable-workflow.yml
     with:
       image_name: pluto
       tag: pluto1
