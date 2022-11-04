@@ -27,7 +27,10 @@ jobs:
   job0:
     runs-on: ubuntu-22.04
     steps:
-      - name: echo RUN id, number
-        run: "echo RUN ID: '${{ github.id }}', NUMBER: '${{ github.run_number }}" 
-      - name: echo JOB id
-        run: "echo JOB ID: '${{ github.job_id }}'"
+      - name: Checkout repository
+        uses: actions/checkout@v3git show-ref --tags
+      - name: get tag short sha
+        run: | 
+          tag_sha=$(git rev-list -n 1 $(git tag --sort=-creatordate | head -n 1))
+          echo $tag_sha >> $GITHUB_ENV
+          echo $tag_sha
