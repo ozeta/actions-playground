@@ -1,0 +1,19 @@
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        required: true
+        type: string
+      tag: 
+        type: string
+    secrets:
+
+
+jobs:
+  job0:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: echo INPUT IMAGE
+        run: "echo RUN ID: '${{ inputs.image_name }}'" 
+      - name: echo INPUT TAG
+        run: "echo JOB ID: '${{ inputs.tag }}'"
