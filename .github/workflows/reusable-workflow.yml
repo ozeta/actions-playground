@@ -16,6 +16,6 @@ jobs:
       - name: echo INPUT TAG
         run: "echo JOB ID: '${{ inputs.tag }}'"
       - id: reusable-action
-        uses: ./.github/actions/composite
+        uses: ./.github/actions/composite/action.yml
         with:
           who-to-greet: 'Mona the Octocat'
