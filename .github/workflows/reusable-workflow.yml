@@ -6,8 +6,6 @@ on:
         type: string
       tag: 
         type: string
-    secrets:
-
 
 jobs:
   job0:
