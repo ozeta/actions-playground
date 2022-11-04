@@ -11,6 +11,8 @@ jobs:
   reusable:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3    
       - name: echo INPUT IMAGE
         run: "echo RUN ID: '${{ inputs.image_name }}'" 
       - name: echo INPUT TAG
