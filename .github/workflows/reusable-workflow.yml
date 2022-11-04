@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3    
+        uses: actions/checkout@v3
+      - run: ls -lhaRt
       - name: echo INPUT IMAGE
         run: "echo RUN ID: '${{ inputs.image_name }}'" 
       - name: echo INPUT TAG
