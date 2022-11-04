@@ -23,10 +23,11 @@ env:
 
 jobs:
   job0:
-    uses: ./.github/workflows/reusable-workflow.yml
-    with:
-      image_name: pippo
-      tag: pippo1
+    - uses: ./.github/workflows/reusable-workflow.yml
+      with:
+        image_name: pippo
+        tag: pippo1
+    - run: echo "ciao"
   job1:
     uses: ./.github/workflows/reusable-workflow.yml
     with:
