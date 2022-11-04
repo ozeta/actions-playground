@@ -26,11 +26,19 @@ env:
 jobs:
   job0:
     runs-on: ubuntu-22.04
+    outputs:
+      tag_sha: ${{ steps.sha_out.outputs.tag_sha }}    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3git show-ref --tags
       - name: get tag short sha
+        id: sha_out
         run: | 
           tag_sha=$(git rev-list -n 1 $(git tag --sort=-creatordate | head -n 1))
-          echo $tag_sha >> $GITHUB_ENV
+          echo "tag_sha=$tag_sha" >> $GITHUB_ENV
+          echo "tag_sha=$tag_sha" >> $GITHUB_OUTPUT
           echo $tag_sha
+      - name: use sha
+        run: |
+          echo "output tag sha: '${{ steps.sha_out.outputs.tag_sha }}'"
+          echo "env tag sha: '${{ env.tag_sha }}'"
