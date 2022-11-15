@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: mkdir nxcache; echo "CIAONE" > nxcache/pippo
-      - run: tar czf nxcache.tar.gz ${{ github.workspace }}/nxcache
+      - run: tar czf nxcache.tar.gz '${{ github.workspace }}'/nxcache
       - run: rm -rf nxcache
       - run: tar xzf nxcache.tar.gz
       - run: ls -lRh
