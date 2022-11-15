@@ -27,3 +27,6 @@ jobs:
     steps:
       - run: mkdir nxcache; touch nxcache/pippo
       - run: tar czf nxcache.tar.gz ${{ github.workspace }}/nxcache
+      - run: rm -rf nxcache
+      - run: tar xzf nxcache.tar.gz ${{ github.workspace }}
+      - run: ls -lRh
