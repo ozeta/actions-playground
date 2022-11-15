@@ -25,7 +25,7 @@ jobs:
   one:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir nxcache; touch nxcache/pippo
+      - run: mkdir nxcache; echo "CIAONE" > nxcache/pippo
       - run: tar czf nxcache.tar.gz
       - run: rm -rf nxcache
       - run: tar xzf nxcache.tar.gz
