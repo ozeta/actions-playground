@@ -1,0 +1,29 @@
+on:
+  push:
+
+
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+env:
+  JOB_CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
+  COMMIT_SHA: ${{ github.sha }}
+  CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}-${{ github.run_id }}
+  RESTORE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}
+
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir nxcache; touch nxcache/pippo
+      - run: tar czf ${{ github.workspace }}/nxcache nxcache.tar.gz
