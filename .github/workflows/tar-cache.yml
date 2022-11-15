@@ -26,4 +26,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: mkdir nxcache; touch nxcache/pippo
-      - run: tar czf ${{ github.workspace }}/nxcache nxcache.tar.gz
+      - run: tar czf nxcache.tar.gz ${{ github.workspace }}/nxcache
