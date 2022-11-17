@@ -34,14 +34,13 @@ jobs:
       - run: echo "ciao" out.log
       - run: ls -la
   stage1:
-    needs: stage0
     runs-on: ubuntu-22.04
     steps:
       - run: ls -la
       - run: cat out.log
 
   stage2:
-    needs: stage1
+    needs: upload
     runs-on: ubuntu-22.04
     steps:
       - run: ls -la

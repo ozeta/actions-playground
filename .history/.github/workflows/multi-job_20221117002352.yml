@@ -34,7 +34,7 @@ jobs:
       - run: echo "ciao" out.log
       - run: ls -la
   stage1:
-    needs: stage0
+    need: stage0
     runs-on: ubuntu-22.04
     steps:
       - run: ls -la
