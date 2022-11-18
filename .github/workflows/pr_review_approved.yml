@@ -4,8 +4,9 @@ on:
 
   pull_request_review:
     types: [submitted]
+    
 jobs:
-  PR review approved:
+  PR-review-approved:
     runs-on: ubuntu-latest
     steps:
       - run: echo "PR approved"
