@@ -1,7 +1,4 @@
 on:
-  branches: 
-    - "devel*"
-
   pull_request_review:
     types: [submitted]
     
