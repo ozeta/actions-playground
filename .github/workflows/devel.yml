@@ -6,18 +6,7 @@ jobs:
   basic:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "ciao"
-  submitted-and-approved:
-    if: github.event_name == 'pull_request' && github.event.review.state == 'approved'
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "merge approved"
-
-  submitted-but-not-yet-approved:
-    if: ${{ github.event_name == 'pull_request' && github.event.review.state != 'approved' }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "merge not yet approved"
+      - run: echo "basic PUSH commit"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -50,3 +39,22 @@ jobs:
           echo "The run id is: $GITHUB_RUN_ID"
           echo "The GitHub Actor's username is: $GITHUB_ACTOR"
           echo "GitHub SHA: $GITHUB_SHA"      
+  submitted-and-approved:
+    if: github.event_name == 'pull_request' && github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "merge approved"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+        
+  submitted-but-not-yet-approved:
+    if: ${{ github.event_name == 'pull_request' && github.event.review.state != 'approved' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "merge not yet approved"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
