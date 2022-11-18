@@ -1,18 +1,20 @@
-name: "pull-requests"
-
 on:
-  pull_request:
-  
+  push:
+    branches: ["devel"]
+
 jobs:
-  
+  basic:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ciao"
   submitted-and-approved:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - run: echo "merge approved"
-  
+
   submitted-but-not-yet-approved:
     if: github.event.review.state != 'approved'
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - run: echo "merge not yet approved"
