@@ -8,7 +8,7 @@ jobs:
     steps:
       - run: echo "ciao"
   submitted-and-approved:
-    if: github.event.review.state == 'approved'
+    if: github.event_name == 'pull_request' && github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
       - run: echo "merge approved"
