@@ -39,6 +39,17 @@ jobs:
           echo "The run id is: $GITHUB_RUN_ID"
           echo "The GitHub Actor's username is: $GITHUB_ACTOR"
           echo "GitHub SHA: $GITHUB_SHA"      
+
+  submitted-and-draft:
+    if: github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "pr draft"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
   submitted-and-approved:
     if: github.event_name == 'pull_request' && github.event.review.state == 'approved'
     runs-on: ubuntu-latest
