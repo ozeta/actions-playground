@@ -48,10 +48,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "pr draft"
+      - run: echo ${{ github.event.review.state }}
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+
+
+  # submitted-and-draft-1:
+  #   if: github.event_name == 'pull_request' && github.event.pull_request.draft
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "pr draft"
+  #     - name: Dump GitHub context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJson(github) }}
+  #       run: echo "$GITHUB_CONTEXT"
 
 
   # submitted-and-draft-1:
@@ -69,17 +81,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "merge approved"
+      - run: echo ${{ github.event.review.state }}
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+
 
   submitted-but-not-yet-approved:
     if: ${{ github.event_name == 'pull_request' && github.event.review.state != 'approved' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "merge not yet approved"
+      - run: echo ${{ github.event.review.state }}
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+
