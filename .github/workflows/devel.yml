@@ -47,8 +47,10 @@ jobs:
     if: github.event.pull_request.draft
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.review.state }}
-        name: echo "review state"
+      - run: | 
+          echo ${{ github.event.review.state }}
+          echo ${{ toJson(github.event.review) }}
+        name: "review state"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -59,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.event.review.state }}      
-        name: echo "review state"
+        name: "review state"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
