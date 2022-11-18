@@ -1,13 +1,11 @@
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_review
 on:
   pull_request_review:
     types: [submitted]
     
 jobs:
-  PR-review-approved:
+  approved:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - run: echo "PR approved"
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+      - run: echo "This PR was approved"
