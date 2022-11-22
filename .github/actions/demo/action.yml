@@ -15,5 +15,5 @@ runs:
     - name: Before install
       env:
         CONT: pippo
-      run: echo ${{ env.CONT }}
+      run: echo ${{ env.CONT || "std" }}
       shell: bash
