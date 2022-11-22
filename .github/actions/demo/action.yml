@@ -8,10 +8,12 @@ inputs:
   context:
     description: "override context"
     required: false
-    default: ${{ toString(github) }}
+    default: ""
 runs:
   using: "composite"
   steps:
     - name: Before install
-      run: echo ${{ inputs.event_name }}
+      env:
+        CONT: pippo
+      run: echo $CONT
       shell: bash
