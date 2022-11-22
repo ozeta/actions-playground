@@ -1,0 +1,17 @@
+name: "demo"
+
+inputs:
+  event_name:
+    description: "override github.event_name"
+    required: false
+    default: ${{ github.event_name }}
+  context:
+    description: "override context"
+    required: false
+    default: ${{ toString(github) }}
+runs:
+  using: "composite"
+  steps:
+    - name: Before install
+      run: echo ${{ inputs.event_name }}
+      shell: bash
