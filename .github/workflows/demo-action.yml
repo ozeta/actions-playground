@@ -24,9 +24,13 @@ env:
 
 
 jobs:
-  pre-upload:
+  demo-action:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for all    
       - run: ls -R
       - name: demo
         uses: ./.github/actions/demo
