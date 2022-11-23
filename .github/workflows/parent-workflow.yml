@@ -22,6 +22,7 @@ env:
   CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}-${{ github.run_id }}
   RESTORE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}
   PROXY_HOST: "pluto"
+  PROXY_HOST_ABB: "pippo"
 
 jobs:
   demo-action:
@@ -46,6 +47,13 @@ jobs:
             check-a-env: "true"
             check-b-env: "true"
             proxy: $PROXY_HOST
+            version: 1
+          - description: "Stg-02"
+            test-id: "core"
+            auth: "ALL"
+            check-d-env: "true"
+            check-c-env: "true"
+            proxy: $PROXY_HOST_ABB
             version: 1
           
     needs: [ demo-action ]
