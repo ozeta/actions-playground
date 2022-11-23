@@ -1,4 +1,4 @@
-description: "child"
+name: "child-name"
 
 on:
   workflow_call:
