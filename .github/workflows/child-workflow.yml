@@ -53,13 +53,13 @@ jobs:
     steps:
       - name: some stuff
         run: |
-          echo " ${{ inputs.description }}"
-          echo " ${{ inputs.child-item-id }}"
-          echo " ${{ inputs.check-a-env }}"
-          echo " ${{ inputs.check-b-env }}"
-          echo " ${{ inputs.check-c-env }}"
-          echo " ${{ inputs.check-d-env }}"
-          echo " ${{ inputs.proxy }}"
-          echo " ${{ inputs.config-path }}"
-          echo " ${{ inputs.version }}"
-      - run: echo ${{ env.PROXY_HOST }}
+          echo "${{ inputs.description }}"
+          echo "${{ inputs.child-item-id }}"
+          echo "${{ inputs.check-a-env }}"
+          echo "${{ inputs.check-b-env }}"
+          echo "${{ inputs.check-c-env }}"
+          echo "${{ inputs.check-d-env }}"
+          echo "${{ inputs.proxy }}"
+          echo "${{ inputs.config-path }}"
+          echo "${{ inputs.version }}"
+      - run: echo PROXY_HOST -> ${{ env.PROXY_HOST }}

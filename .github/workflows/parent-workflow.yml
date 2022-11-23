@@ -36,7 +36,7 @@ jobs:
 
 
   call-workflow-on-matrix:
-    name: "e2e: ${{ matrix.version }}"
+    name: "e2e: ${{ matrix.child-item.version }}"
     strategy:
       matrix:        
         child-item:
@@ -45,7 +45,7 @@ jobs:
             auth: "OAUTH"
             check-a-env: "true"
             check-b-env: "true"
-            proxy: $ {{ env.PROXY_HOST }}
+            proxy: ${{ env.PROXY_HOST }}
           
     needs: [ demo-action ]
     uses: ./.github/workflows/child-workflow.yml
@@ -54,7 +54,7 @@ jobs:
       description: ${{ matrix.child-item.description }}  
       child-item-id: ${{ matrix.child-item.test-id }}  
       auth: ${{ matrix.child-item.auth }}  
-      check-a-env: ${{ matrix.check-a-env }}  
+      check-a-env: ${{ matrix.child-item.check-a-env }}  
       check-b-env: ${{ matrix.child-item.check-b-env }}  
       check-c-env: ${{ matrix.child-item.check-c-env }}  
       check-d-env: ${{ matrix.child-item.check-d-env }}  
