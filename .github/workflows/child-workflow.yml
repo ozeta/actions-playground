@@ -13,6 +13,14 @@ on:
       token:
         required: false
 
+  
+env:
+  JOB_CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
+  COMMIT_SHA: ${{ github.sha }}
+  CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}-${{ github.run_id }}
+  RESTORE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}
+  PROXY_HOST: "pluto"
+
 jobs:
   reusable_workflow_job:
     runs-on: ubuntu-latest
