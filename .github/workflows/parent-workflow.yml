@@ -38,7 +38,7 @@ jobs:
 
   call-workflow:
     needs: [ demo-action ]
-    uses: ./.github/workflows/child-workflow.yml@reusable-workflow
+    uses: ./.github/workflows/child-workflow.yml
     with:
       config-path: .github/labeler.yml
       
