@@ -54,7 +54,7 @@ jobs:
             check-d-env: "true"
             check-c-env: "true"
             proxy: $PROXY_HOST_ABB
-            version: 1
+            version: 2
           
     needs: [ demo-action ]
     uses: ./.github/workflows/child-workflow.yml
