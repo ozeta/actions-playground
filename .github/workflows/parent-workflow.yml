@@ -45,7 +45,7 @@ jobs:
             auth: "OAUTH"
             check-a-env: "true"
             check-b-env: "true"
-            proxy: ${{ github.event_name }}
+            proxy: $PROXY_HOST
             version: 1
           
     needs: [ demo-action ]
