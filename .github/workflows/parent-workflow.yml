@@ -45,7 +45,7 @@ jobs:
             auth: "OAUTH"
             check-a-env: "true"
             check-b-env: "true"
-            proxy: ${{ env.PROXY_HOST }}
+            proxy: ${{ github.event_name }}
           
     needs: [ demo-action ]
     uses: ./.github/workflows/child-workflow.yml
