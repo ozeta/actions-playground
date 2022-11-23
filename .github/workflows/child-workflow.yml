@@ -14,4 +14,4 @@ jobs:
     steps:
       - name: some stuff
         run: |
-          echo "echo HI"
+          echo "echo ${{ inputs.config-path }}"
