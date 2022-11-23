@@ -51,6 +51,19 @@ jobs:
     runs-on: ubuntu-latest
     name: child-${{ inputs.version }}
     steps:
+      - name: check env is empty
+        run: |
+          if [[ -z "${{ inputs.check-a-env }}" ]]; then
+            echo "check env a is false"
+          elif [[ -n "${{ inputs.check-a-env }}" ]]; then
+            echo "check env a is true"
+          fi
+          if [[ -z "${{ inputs.check-c-env }}" ]]; then
+            echo "check env c is false"
+          elif [[ -n "${{ inputs.check-c-env }}" ]]; then
+            echo "check env c is true"
+          fi
+
       - name: some stuff
         run: |
           echo "description -> ${{ inputs.description }};"
