@@ -32,8 +32,7 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all    
       - run: ls -R
-      - name: demo
-        uses: ./.github/actions/demo
+
 
 
   call-workflow:
