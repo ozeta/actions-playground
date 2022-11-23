@@ -9,6 +9,31 @@ on:
       version:
         required: false
         type: string
+      description:
+        required: false
+        type: string
+      child-item-id:
+        required: false
+        type: string
+      auth:
+        required: false
+        type: string
+      check-a-env:
+        required: false
+        type: string
+      check-b-env:
+        required: false
+        type: string
+      check-c-env:
+        required: false
+        type: string
+      check-d-env:
+        required: false
+        type: string
+      proxy:
+        required: false
+        type: string
+
     secrets:
       token:
         required: false
@@ -28,5 +53,13 @@ jobs:
     steps:
       - name: some stuff
         run: |
-          echo "echo ${{ inputs.config-path }}"
+          echo " ${{ inputs.description }}"
+          echo " ${{ inputs.child-item-id }}"
+          echo " ${{ inputs.check-a-env }}"
+          echo " ${{ inputs.check-b-env }}"
+          echo " ${{ inputs.check-c-env }}"
+          echo " ${{ inputs.check-d-env }}"
+          echo " ${{ inputs.proxy }}"
+          echo " ${{ inputs.config-path }}"
+          echo " ${{ inputs.version }}"
       - run: echo ${{ env.PROXY_HOST }}

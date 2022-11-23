@@ -38,10 +38,26 @@ jobs:
   call-workflow-on-matrix:
     name: "e2e: ${{ matrix.version }}"
     strategy:
-      matrix:
-        version: [10, 12, 14]
+      matrix:        
+        child-item:
+          - description: "Child core"
+            test-id: "core"
+            auth: "OAUTH"
+            check-a-env: "true"
+            check-b-env: "true"
+            proxy: $ {{ env.PROXY_HOST }}
+          
     needs: [ demo-action ]
     uses: ./.github/workflows/child-workflow.yml
+    secrets: inherit
     with:
-      config-path: .github/labeler-${{ matrix.version }}.yml
-      version: ${{ matrix.version }}
+      description: ${{ matrix.child-item.description }}  
+      child-item-id: ${{ matrix.child-item.test-id }}  
+      auth: ${{ matrix.child-item.auth }}  
+      check-a-env: ${{ matrix.check-a-env }}  
+      check-b-env: ${{ matrix.child-item.check-b-env }}  
+      check-c-env: ${{ matrix.child-item.check-c-env }}  
+      check-d-env: ${{ matrix.child-item.check-d-env }}  
+      proxy: ${{ matrix.child-item.proxy }}  
+      config-path: .github/labeler-${{ matrix.child-item.version }}.yml
+      version: ${{ matrix.child-item.version }}
