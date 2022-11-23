@@ -21,3 +21,4 @@ jobs:
       - name: some stuff
         run: |
           echo "echo ${{ inputs.config-path }}"
+      - run: echo ${{ env.PROXY_HOST }}
