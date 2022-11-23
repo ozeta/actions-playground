@@ -16,7 +16,7 @@ on:
 jobs:
   reusable_workflow_job:
     runs-on: ubuntu-latest
-    run-name: child-${{ inputs.version }}
+    name: child-${{ inputs.version }}
     steps:
       - name: some stuff
         run: |
