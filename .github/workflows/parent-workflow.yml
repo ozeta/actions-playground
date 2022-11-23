@@ -1,0 +1,44 @@
+name: "artifacts"
+
+on:
+  push:
+    branches: [ "*"]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+env:
+  JOB_CACHE_PATH: /tmp/node-cache-${{ github.ref_name }}
+  COMMIT_SHA: ${{ github.sha }}
+  CACHE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}-${{ github.run_id }}
+  RESTORE_KEY: ${{ github.workspace }}-${{ github.ref_name }}-${{ github.sha }}
+  PROXY_HOST: "pluto"
+
+jobs:
+  demo-action:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for all    
+      - run: ls -R
+      - name: demo
+        uses: ./.github/actions/demo
+
+
+  call-workflow:
+    needs: [ demo-action ]
+    uses: ./.github/workflows/child-workflow.yml@reusable-workflow
+    with:
+      config-path: .github/labeler.yml
+      
