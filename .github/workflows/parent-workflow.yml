@@ -44,4 +44,4 @@ jobs:
     uses: ./.github/workflows/child-workflow.yml
     with:
       config-path: .github/labeler-${{ matrix.version }}.yml
-      
+      version: ${{ matrix.version }}
