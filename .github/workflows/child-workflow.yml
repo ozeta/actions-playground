@@ -64,6 +64,14 @@ jobs:
             echo "check env c is true"
           fi
 
+      - name: execute if env a check is true
+        if: ${{ inputs.check-a-env == 'true' }}
+        run: echo "check a enabled"
+        
+      - name: execute if env c check is true
+        if: ${{ inputs.check-c-env == 'true' }}
+        run: echo "check c enabled"
+
       - name: some stuff
         run: |
           echo "description -> ${{ inputs.description }};"
