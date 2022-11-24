@@ -51,12 +51,6 @@ jobs:
     runs-on: ubuntu-latest
     name: child-${{ inputs.version }}
     steps:
-
-      - name: Before install
-        env:
-          CONT: pippo
-        run: echo ${{ env.CONT || "std" }}
-
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
