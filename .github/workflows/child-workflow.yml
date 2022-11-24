@@ -52,4 +52,4 @@ jobs:
     name: child-${{ inputs.version }}
     steps:
       - name: get context
-        uses: .github/actions/demo
+        uses: ${{ github.workspace }}/.github/actions/demo
