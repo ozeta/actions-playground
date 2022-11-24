@@ -51,36 +51,5 @@ jobs:
     runs-on: ubuntu-latest
     name: child-${{ inputs.version }}
     steps:
-      - name: check env is empty
-        run: |
-          if [[ -z "${{ inputs.check-a-env }}" ]]; then
-            echo "check env a is false"
-          elif [[ -n "${{ inputs.check-a-env }}" ]]; then
-            echo "check env a is true"
-          fi
-          if [[ -z "${{ inputs.check-c-env }}" ]]; then
-            echo "check env c is false"
-          elif [[ -n "${{ inputs.check-c-env }}" ]]; then
-            echo "check env c is true"
-          fi
-
-      - name: execute if env a check is true
-        if: ${{ inputs.check-a-env == 'true' }}
-        run: echo "check a enabled"
-        
-      - name: execute if env c check is true
-        if: ${{ inputs.check-c-env == 'true' }}
-        run: echo "check c enabled"
-
-      - name: some stuff
-        run: |
-          echo "description -> ${{ inputs.description }};"
-          echo "child item id -> ${{ inputs.child-item-id }};"
-          echo "check env a -> ${{ inputs.check-a-env }};"
-          echo "check env b -> ${{ inputs.check-b-env }};"
-          echo "check env c -> ${{ inputs.check-c-env }};"
-          echo "check env d -> ${{ inputs.check-d-env }};"
-          echo "proxy -> ${{ inputs.proxy }};"
-          echo "config path -> ${{ inputs.config-path }};"
-          echo "version -> ${{ inputs.version }};"
-      - run: echo PROXY_HOST -> ${{ env.PROXY_HOST }}
+      - name: get context
+        uses: ./.github/actions/demo
