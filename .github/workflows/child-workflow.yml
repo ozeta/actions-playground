@@ -57,6 +57,7 @@ jobs:
           echo ${{ github.run_id }}
           echo ${{ github.job }}
           echo ${{ github.steps.step_id }}
+          echo ${{ steps.echoes }}
       - name: Dump GitHub context
         id: dump_github
         env:
