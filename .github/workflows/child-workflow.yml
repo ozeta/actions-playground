@@ -54,7 +54,7 @@ jobs:
       - name: echo some rnd
         run: |
           echo ${{ github.run_id }}
-          echo ${{ github.job_id }}
+          echo ${{ github.job }}
           echo ${{ github.steps.step_id }}
       - name: Dump GitHub context
         env:
