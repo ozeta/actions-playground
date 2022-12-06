@@ -27,5 +27,5 @@ jobs:
         max_attempts: 3
         shell: bash
         command: |
-          echo "COUNTER <${GITHUB_OUTPUT}>"
+          cat ${GITHUB_OUTPUT}
           exit 1
