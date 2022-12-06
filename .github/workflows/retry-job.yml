@@ -28,5 +28,6 @@ jobs:
         shell: bash
         command: |
           echo "COUNTER <$COUNTER>"
-          export COUNTER=$(($COUNTER + 1))
+          COUNTER=$(($COUNTER + 1))
+          echo "COUNTER=$COUNTER" >> $GITHUB_ENV
           exit 1
