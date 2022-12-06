@@ -27,5 +27,6 @@ jobs:
         max_attempts: 3
         shell: bash
         command: |
+          echo "++NEW TRY++"
           cat ${GITHUB_OUTPUT}
           exit 1
