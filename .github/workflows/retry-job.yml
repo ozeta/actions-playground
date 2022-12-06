@@ -29,5 +29,5 @@ jobs:
         command: |
           echo "++NEW TRY++"
           COUNTER=$(cat ${GITHUB_OUTPUT} | grep -E '^[0-9]{1,2}$' | tail -n1)
-          echo COUNTER = <$COUNTER>
+          echo "COUNTER = <$COUNTER>"
           exit 1
