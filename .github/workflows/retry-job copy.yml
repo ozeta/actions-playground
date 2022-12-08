@@ -1,0 +1,22 @@
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  vscode-server:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: install vscode
+      run: apt update && apt install code
