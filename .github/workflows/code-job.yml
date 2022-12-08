@@ -19,6 +19,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: install vscode
-        run: sudo snap install --classic vscode
+        run: sudo snap install --classic code
       - name: try tunnel
         run: code tunnel -help
