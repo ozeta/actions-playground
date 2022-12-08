@@ -27,4 +27,4 @@ jobs:
           sudo apt update
           sudo apt install code
       - name: run vscode tunnel
-        run: code tunnel --help
+        run: code tunnel --accept-server-license-terms --random-name
