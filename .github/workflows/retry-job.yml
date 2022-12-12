@@ -1,6 +1,8 @@
 on:
   push:
-    branches: [ "^main" ]
+    branches: 
+      - "main"
+      - "main-patch.*"
   workflow_dispatch:
     inputs:
       logLevel:
