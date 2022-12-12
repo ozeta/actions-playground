@@ -2,7 +2,7 @@ on:
   push:
     branches: 
       - "main"
-      - "main-patch.*"
+      - "main-patch*"
   workflow_dispatch:
     inputs:
       logLevel:
