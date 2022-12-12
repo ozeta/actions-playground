@@ -1,0 +1,34 @@
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  retries:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: run test with retries
+      env:
+        COUNTER: 0
+      uses: nick-fields/retry@v2.8.2
+      with:
+        timeout_minutes: 20
+        max_attempts: 3
+        shell: bash
+        command: |
+          echo "++NEW TRY++"
+          COUNTER=$(cat ${GITHUB_OUTPUT} | grep -E '^[0-9]{1,2}$' | tail -n1)
+          echo "COUNTER = <$COUNTER>"
+          /usr/bin/xvfb-run --help
+          exit 1
