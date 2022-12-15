@@ -10,7 +10,7 @@ runs:
     - run: cat ${{ inputs.var-file }}
       shell: bash
     - run: |
-        yq '.. style="double" | .env' '${{ inputs.var-file }}' | sed s'/: /=/'g > tmp
+        yq '.. style="" | .env' '${{ inputs.var-file }}' | sed s'/: /=/'g > tmp
         while read ENVVAR; do
           echo "$ENVVAR" >> $GITHUB_ENV
         done < "tmp"
