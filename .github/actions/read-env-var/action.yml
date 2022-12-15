@@ -13,7 +13,7 @@ runs:
         yq '.. style="double" | .env' '${{ inputs.var-file }}' | sed s'/: /=/'g > tmp
         while read ENVVAR; do
           echo "$ENVVAR" >> $GITHUB_ENV
-        done < "/tmp"
+        done < "tmp"
       shell: bash
     - run: |
         env | sort
