@@ -12,8 +12,8 @@ runs:
     - run: |
         yq '.. style="" | .env' '${{ inputs.var-file }}' | sed s'/: /=/'g > tmp
         while read ENVVAR; do
-          echo "@@@$ENVVAR@@@"
-          echo "$ENVVAR" >> $GITHUB_ENV
+          eval $ENVVAR
+          echo "$(eval echo $ENVVAR)" >> $GITHUB_ENV
         done < "tmp"
       shell: bash
     - run: |
