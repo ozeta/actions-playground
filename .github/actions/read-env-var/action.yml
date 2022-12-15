@@ -1,18 +1,17 @@
 name: 'read shared file and set environment variables'
 inputs:
-  varFilePath:
+  var-file:
     description: ""
     required: false
     default: ./.github/variables/variables.yml
 runs:
   using: "composite"
   steps:
-    - uses: mikefarah/yq@master
-      with:
-        cmd: yq '.env' '${{ inputs.varfilePath }}'
-    - name: Reuse a variable obtained in another step
-      run: "echo ${{ steps.get_username.outputs.result }} | sed s'/: /=/'g >> $GITHUB_ENV"
+    - run: cat ${{ inputs.var-file }}
       shell: bash
-    - run: env
+    - run: |
+        yq '.env' '${{ inputs.var-file }}' | sed s'/: /=/'g >> $GITHUB_ENV"
       shell: bash
-
+    - run: |
+        env | sort
+      shell: bash
