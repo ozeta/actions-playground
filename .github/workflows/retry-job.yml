@@ -18,10 +18,15 @@ jobs:
   retries:
     runs-on: ubuntu-22.04
     steps:
-      - run: yq --version
       - name: Checkout repository
         uses: actions/checkout@v3    
-      - uses: ./.github/actions/read-env-var
+      - run: |
+          yq '.. style="" | .env' './.github/variables/variables.yml' | sed s'/: /=/'g > tmp
+          while read ENVVAR; do
+            eval $ENVVAR
+            echo "$(eval echo $ENVVAR)" >> $GITHUB_ENV
+          done < "tmp"
+      # - uses: ./.github/actions/read-env-var
       - run: env | sort
     # - name: run test with retries
     #   env:
