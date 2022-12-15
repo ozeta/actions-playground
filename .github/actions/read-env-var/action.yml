@@ -10,7 +10,7 @@ runs:
     - run: cat ${{ inputs.var-file }}
       shell: bash
     - run: |
-        yq '.env' '${{ inputs.var-file }}' | sed s'/: /=/'g >> $GITHUB_ENV
+        yq '.. style="double" | .env' '${{ inputs.var-file }}' | sed s'/: /=/'g >> $GITHUB_ENV
       shell: bash
     - run: |
         env | sort
