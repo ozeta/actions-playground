@@ -18,6 +18,8 @@ jobs:
   retries:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3    
     - uses: ./.github/actions/read-env-var
     - run: env | sort
     # - name: run test with retries
