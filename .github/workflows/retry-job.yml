@@ -20,4 +20,4 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3    
-      - uses: .github/actions/multine-to-env
+      - uses: ./.github/actions/multine-to-env
