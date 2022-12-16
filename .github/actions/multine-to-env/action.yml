@@ -1,0 +1,20 @@
+name: 'read shared file and set environment variables'
+inputs:
+  var-file:
+    description: ""
+    required: false
+    default: ./.github/variables/variables.yml
+runs:
+  using: "composite"
+  steps:
+    - run: cat ${{ inputs.var-file }}
+      shell: bash
+    - shell: bash
+      run: |
+        echo ${{ github.event.head_commit.message }}
+    - shell: bash
+      run: |
+        ENVVAR="ENVVAR=${{ github.event.head_commit.message }}"
+        echo "$(eval echo $ENVVAR)" head -n1 >> $GITHUB_ENV
+    - shell: bash
+      run: env | sort

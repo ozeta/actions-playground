@@ -20,23 +20,4 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3    
-      - run: |
-          yq '.. style="" | .env' './.github/variables/variables.yml' | sed s'/: /=/'g > tmp
-          while read ENVVAR; do
-            echo "$(eval echo $ENVVAR)" >> $GITHUB_ENV
-          done < "tmp"
-      # - uses: ./.github/actions/read-env-var
-      - run: env | sort
-    # - name: run test with retries
-    #   env:
-    #     COUNTER: 0
-    #   uses: nick-fields/retry@v2.8.2
-    #   with:
-    #     timeout_minutes: 20
-    #     max_attempts: 3
-    #     shell: bash
-    #     command: |
-    #       echo "++NEW TRY++"
-    #       COUNTER=$(cat ${GITHUB_OUTPUT} | grep -E '^[0-9]{1,2}$' | tail -n1)
-    #       echo "COUNTER = <$COUNTER>"
-    #       exit 1
+      - uses: .github/actions/multine-to-env
