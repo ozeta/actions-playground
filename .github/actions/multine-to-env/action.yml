@@ -15,6 +15,6 @@ runs:
     - shell: bash
       run: |
         ENVVAR="ENVVAR=${{ github.event.head_commit.message }}"
-        echo "$(eval echo $ENVVAR)" head -n1 >> $GITHUB_ENV
+        echo "$(eval echo $ENVVAR)" | head -n1 >> $GITHUB_ENV
     - shell: bash
       run: env | sort
