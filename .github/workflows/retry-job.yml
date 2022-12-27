@@ -24,6 +24,7 @@ jobs:
       - run: |
             echo "========using google-chrome"
             google-chrome --version || true
+            which google-chrome || true
             echo "========using chrome"
             chrome --version || true
 
