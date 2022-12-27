@@ -15,12 +15,17 @@ on:
         - error
   
 jobs:
-    install-chrome:
-        runs-on: ubuntu-22.04
-        steps:
-          - run: |
+  install-chrome:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
             wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
             apt install ./google-chrome-stable_current_amd64.deb
+      - run: |
+            echo "========using google-chrome"
+            google-chrome --version || true
+            echo "========using chrome"
+            chrome --version || true
 
 
   retries:
