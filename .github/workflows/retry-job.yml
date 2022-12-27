@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "setup-chrome" ]
   workflow_dispatch:
     inputs:
       logLevel:
