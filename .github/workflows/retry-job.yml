@@ -15,11 +15,19 @@ on:
         - error
   
 jobs:
+    install-chrome:
+        runs-on: ubuntu-22.04
+        steps:
+          - run: |
+            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            apt install ./google-chrome-stable_current_amd64.deb
+
+
   retries:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3    
+        uses: actions/checkout@v3
       - run: |
           yq '.. style="" | .env' './.github/variables/variables.yml' | sed s'/: /=/'g > tmp
           while read ENVVAR; do
