@@ -29,5 +29,5 @@ jobs:
             sudo ln -s /usr/bin/google-chrome /usr/bin/chrome
             chrome --version || true
       - run: |
-        echo "SANTA -> $SANTA"
-        echo "secrets.SANTA ${{ secrets.SANTA }}"
+          echo "SANTA -> $SANTA"
+          echo "secrets.SANTA ${{ secrets.SANTA }}"
