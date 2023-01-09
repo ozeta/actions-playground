@@ -24,3 +24,9 @@ runs:
         echo "VAR_A=$VAR_A";
         echo "VAR_B=$VAR_B";
         echo "VAR_C=$VAR_C";
+    - name: commit msg
+      shell: bash
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+      run: |
+        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE;"
