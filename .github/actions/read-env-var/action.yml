@@ -30,3 +30,4 @@ runs:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         echo "COMMIT_MESSAGE=$COMMIT_MESSAGE;"
+        echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }};"
