@@ -51,7 +51,7 @@ runs:
 
 
     - name: stage2
-      if: ${{ env.VAR_A  == 'A' || "BREAK_ACTION" == 'true' }}
+      if: ${{ env.VAR_A  == 'A' || env.BREAK_ACTION == 'true' }}
       shell: bash
       run: |
         echo "A";
