@@ -59,3 +59,4 @@ runs:
         echo AFFECTED OUTPUT: ${{ steps.affected.outputs.AFFECTED }};
         echo AFFECTED OUTPUT *: ${{ toJson(steps.affected.outputs.*) }};
         echo NOT AFFECTED OUTPUT: ${{ steps.notaffected.outputs.AFFECTED }};
+        echo NOT AFFECTED OUTPUT *: ${{ toJson(steps.notaffected.outputs.*) }};
