@@ -1,4 +1,4 @@
-name: 'read shared file and set environment variables'
+name: "read shared file and set environment variables"
 inputs:
   var-file:
     description: ""
@@ -42,4 +42,4 @@ runs:
       if: ${{ ! contains(github.event.head_commit.message , '[affected:-]') }}
       shell: bash
       run: |
-        echo "NOT IF [affected:-]";      
+        echo "NOT IF [affected:-]";
