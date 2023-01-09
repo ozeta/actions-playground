@@ -62,7 +62,7 @@ runs:
         echo NOT AFFECTED OUTPUT *: ${{ steps.notaffected.outputs.* }};
 
     - name: stage3
-      if: ${{ ! env.BREAK_ACTION == 'false' }}
+      if: ${{ env.BREAK_ACTION != 'false' }}
       shell: bash
       run: |
         echo "stage3";
