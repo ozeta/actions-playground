@@ -33,13 +33,22 @@ runs:
         echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }};"
 
     - name: commit IF msg
+      id: affected
       if: ${{ contains(github.event.head_commit.message , '[affected:*]') }}
       shell: bash
       run: |
         echo "IF [affected:-]";
+        echo "AFFECTED=true" >> $GITHUB_OUTPUT
 
     - name: NOT commit IF msg
+      id: notaffected
       if: ${{ ! contains(github.event.head_commit.message , '[affected:*]') }}
       shell: bash
       run: |
-        echo "NOT IF [affected:-]";
+        echo "NOT IF [affected:*]";
+
+    - name: stage2
+      if: ${{ ENV.VAR_A == "A" }}
+      shell: bash
+      run: |
+        echo "A";
