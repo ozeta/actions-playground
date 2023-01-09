@@ -52,3 +52,4 @@ runs:
       shell: bash
       run: |
         echo "A";
+        echo "BASE_HASH=origin/${{ github.ref_name }}";
