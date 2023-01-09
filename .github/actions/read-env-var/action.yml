@@ -47,12 +47,14 @@ runs:
       shell: bash
       run: |
         echo "NOT IF [affected:*]";
+        echo "AFFECTED=false" >> $GITHUB_OUTPUT
+
 
     - name: stage2
-      if: ${{ env.VAR_A  == 'A' }}
+      if: ${{ env.VAR_A  == 'A' || "BREAK_ACTION" == 'true' }}
       shell: bash
       run: |
         echo "A";
         echo "BASE_HASH=origin/${{ github.ref_name }}";
-        echo AFFECTED OUTPUT: ${{ steps.id.outputs.affected }};
-        echo NOT AFFECTED OUTPUT: ${{ steps.id.outputs.notaffected }};
+        echo AFFECTED OUTPUT: ${{ steps.id.outputs.affected.AFFECTED }};
+        echo NOT AFFECTED OUTPUT: ${{ steps.id.outputs.notaffected.AFFECTED }};
