@@ -60,3 +60,9 @@ runs:
         echo AFFECTED OUTPUT *: ${{ toJson(steps.affected.outputs.*) }};
         echo NOT AFFECTED OUTPUT: ${{ steps.notaffected.outputs.AFFECTED }};
         echo NOT AFFECTED OUTPUT *: ${{ steps.notaffected.outputs.* }};
+
+    - name: stage3
+      if: ${{ ! env.BREAK_ACTION == 'false' }}
+      shell: bash
+      run: |
+        echo "stage3";
