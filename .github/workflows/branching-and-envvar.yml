@@ -21,7 +21,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3    
       - uses: ./.github/actions/read-env-var
-      - run: |
+      - name echos
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE;"
           echo "VAR_A=$VAR_A";
           echo "VAR_B=$VAR_B";
           echo "VAR_C=$VAR_C";
