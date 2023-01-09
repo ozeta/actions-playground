@@ -33,9 +33,17 @@ runs:
         echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }};"
 
     - name: commit IF msg
-      if: contains(${{ github.event.head_commit.message }}, '[affected:-]')
+      if: ${{ contains(github.event.head_commit.message , '[affected:-]') }}
       shell: bash
       env:
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
-        echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }};"
+        echo "IF [affected:-]";
+
+    - name: NOT commit IF msg
+      if: ${{ ! contains(github.event.head_commit.message , '[affected:-]') }}
+      shell: bash
+      env:
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+      run: |
+        echo "NOT IF [affected:-]";      
