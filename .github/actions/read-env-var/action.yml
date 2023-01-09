@@ -17,6 +17,7 @@ runs:
           echo "VAR_A=$VAR_A";
           echo "VAR_B=$VAR_B";
           echo "VAR_C=$VAR_C";
+          echo "BREAK_ACTION=true;
         } >> $GITHUB_ENV
     - name: order 67
       shell: bash
@@ -53,3 +54,4 @@ runs:
       run: |
         echo "A";
         echo "BASE_HASH=origin/${{ github.ref_name }}";
+        echo OUTPUT: ${{ steps.id.outputs.AFFECTED }};
