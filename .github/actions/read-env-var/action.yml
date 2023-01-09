@@ -66,3 +66,4 @@ runs:
       shell: bash
       run: |
         echo "stage3";
+        echo "EVAL COND: ${{ env.BREAK_ACTION != 'false' || env.VAR_A  != 'A'}}";
