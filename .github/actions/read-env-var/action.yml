@@ -48,7 +48,7 @@ runs:
         echo "NOT IF [affected:*]";
 
     - name: stage2
-      if: ${{ env.VAR_A }} == 'A'
+      if: ${{ env.VAR_A  == 'A' }}
       shell: bash
       run: |
         echo "A";
