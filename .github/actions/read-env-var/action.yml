@@ -56,5 +56,6 @@ runs:
       run: |
         echo "A";
         echo "BASE_HASH=origin/${{ github.ref_name }}";
-        echo AFFECTED OUTPUT: ${{ steps.id.affected.outputs.AFFECTED }};
-        echo NOT AFFECTED OUTPUT: ${{ steps.id.notaffected.outputs.AFFECTED }};
+        echo AFFECTED OUTPUT: ${{ steps.affected.outputs.AFFECTED }};
+        echo AFFECTED OUTPUT *: ${{ steps.affected.outputs.* }};
+        echo NOT AFFECTED OUTPUT: ${{ steps.notaffected.outputs.AFFECTED }};
