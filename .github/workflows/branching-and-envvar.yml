@@ -1,0 +1,27 @@
+on:
+  push:
+    branches: [ "branching*" ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  retries:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3    
+      - uses: ./.github/actions/read-env-var
+      - run: |
+          echo "VAR_A=$VAR_A";
+          echo "VAR_B=$VAR_B";
+          echo "VAR_C=$VAR_C";

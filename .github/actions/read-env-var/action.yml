@@ -7,15 +7,20 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: cat ${{ inputs.var-file }}
+    - name: order 66
       shell: bash
-    - run: |
-        yq '.. style="" | .env' '${{ inputs.var-file }}' | sed s'/: /=/'g > tmp
-        while read ENVVAR; do
-          eval $ENVVAR
-          echo "$(eval echo $ENVVAR)" >> $GITHUB_ENV
-        done < "tmp"
+      run: |
+        VAR_A="A"
+        VAR_B="B"
+        VAR_C="C"
+        {
+          echo "VAR_A=$VAR_A";
+          echo "VAR_B=$VAR_B";
+          echo "VAR_C=$VAR_C";
+        } >> $GITHUB_ENV
+    - name: order 67
       shell: bash
-    - run: |
-        env | sort
-      shell: bash
+      run: |
+        echo "VAR_A=$VAR_A";
+        echo "VAR_B=$VAR_B";
+        echo "VAR_C=$VAR_C";
