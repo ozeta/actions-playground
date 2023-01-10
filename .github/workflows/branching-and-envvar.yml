@@ -25,6 +25,7 @@ jobs:
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
+          yq --version
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE;"
           echo "VAR_A=$VAR_A";
           echo "VAR_B=$VAR_B";
