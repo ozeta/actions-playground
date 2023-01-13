@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3    
+      - name: echo branch
+        run: echo $GITHUB_REF_NAME
       - run: |
           yq '.. style="" | .env' './.github/variables/variables.yml' | sed s'/: /=/'g > tmp
           while read ENVVAR; do
