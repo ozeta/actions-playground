@@ -25,10 +25,10 @@ jobs:
       ORACLE: cron
       TRAVIS_TEST_VALUE: schedule
     steps:
+      - run: echo $GITHUB_REF_NAME
       - uses: ozeta/actions-playground/.github/actions/travis-event-type-load@action/travis-env-parse
         with:
           event_name: $TRAVIS_TEST_VALUE
-      - run: echo $GITHUB_REF_NAME
       - run: echo $TRAVIS_EVENT_TYPE
       - name: test cron 
         run:  if [[ "$TRAVIS_EVENT_TYPE" != "$ORACLE" ]]; then exit 1; fi
