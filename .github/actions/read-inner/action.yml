@@ -7,6 +7,7 @@ runs:
     - name: Parse env global
       shell: bash
       run: |
+        ACTION_TAG="base"
         if [[ $GITHUB_REF_NAME == "master" ]]; then
             echo "Set up ACTION_TAG to latest on main branch"
             ACTION_TAG="latest"
