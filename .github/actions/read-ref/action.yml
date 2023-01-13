@@ -1,0 +1,6 @@
+name: 'use other action to read tag'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/read-inner

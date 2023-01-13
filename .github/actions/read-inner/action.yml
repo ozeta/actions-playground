@@ -1,0 +1,18 @@
+name: "env-var"
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: Parse env global
+      shell: bash
+      run: |
+        if [[ $GITHUB_REF_NAME == "master" ]]; then
+            echo "Set up ACTION_TAG to latest on main branch"
+            ACTION_TAG="latest"
+        fi
+        if [[ $GITHUB_REF_NAME == "develop" ]]; then
+            echo "Set up ACTION_TAG to alpha on develop branch"
+            ACTION_TAG="alpha"
+        fi
+        echo "ACTION_TAG=${ACTION_TAG}" >> $GITHUB_ENV

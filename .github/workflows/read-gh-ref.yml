@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  read-ref:
+    timeout-minutes: 15
+    if: github.event.pull_request.merged == true || ${{ inputs.dry-run-release }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/read-ref
+      - run: echo $ACTION_TAG
