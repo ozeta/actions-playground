@@ -23,4 +23,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - uses: ./.github/actions/read-ref
-      - run: echo $ACTION_TAG
+      - run: "echo outside, action is $ACTION_TAG"

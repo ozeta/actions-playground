@@ -4,3 +4,7 @@ runs:
   using: "composite"
   steps:
     - uses: ./.github/actions/read-inner
+    - name: action echo
+      shell: bash
+      run: |
+        echo inside the action, ACTION_TAG is $ACTION_TAG
