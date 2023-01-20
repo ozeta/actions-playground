@@ -11,6 +11,7 @@ runs:
     - name: action echo
       shell: bash
       run: |
-        for i in ( '${{ inputs.array }}' ); do
+        packages=( $(echo ${{ inputs.array }}) )
+        for i in "${packages[@]}"; do
           echo "$i"
         done
