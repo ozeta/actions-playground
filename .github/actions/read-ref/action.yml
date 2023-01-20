@@ -1,4 +1,9 @@
 name: 'use other action to read tag'
+inputs:
+  array:
+    description: 'packages to cache'
+    required: false
+    type: string
 
 runs:
   using: "composite"
@@ -7,4 +12,6 @@ runs:
     - name: action echo
       shell: bash
       run: |
-        echo inside the action, ACTION_TAG is $ACTION_TAG
+        for i in ( '${{ inputs.array }}' ); do
+          echo "$i"
+        done
