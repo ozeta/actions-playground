@@ -4,6 +4,7 @@ inputs:
     description: 'packages to cache'
     required: false
     type: string
+    default: 'default0 default1'
 
 runs:
   using: "composite"
