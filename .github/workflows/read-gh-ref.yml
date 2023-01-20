@@ -24,4 +24,3 @@ jobs:
       - uses: ./.github/actions/read-ref
         with:
           array: 'a b c'
-      - run: "echo outside, action is $ACTION_TAG"
