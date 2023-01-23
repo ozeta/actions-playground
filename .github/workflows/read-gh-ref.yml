@@ -28,6 +28,6 @@ jobs:
       - run: |
           cat small-affected.json | jq
       - id: use-affected
-          needs: print-affected
-          strategy:
-            matrix: ${{ fromJson(small-affected.json) }}
+        needs: print-affected
+        strategy:
+          matrix: ${{ fromJson(small-affected.json) }}
