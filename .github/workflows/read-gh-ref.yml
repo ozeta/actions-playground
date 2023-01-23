@@ -22,5 +22,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - uses: ./.github/actions/read-ref
-        # with:
-        #   array: 'a b c'
+      - id: print-affected
+        run: |
+          cat affected.json | jq '{ projects: .projects[:3] }' > small-affected.json
+      - id: use-affected
+          needs: print-affected
+          strategy:
+            matrix: ${{ fromJson(small-affected.json) }}
