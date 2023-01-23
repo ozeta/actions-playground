@@ -30,9 +30,6 @@ jobs:
       - run: |
           cat small-affected.json | jq
 
-        run: |
-          echo " running project: ${{ matrix.projects }}"
-
     
   use-matrix:
     needs: build-matrix
