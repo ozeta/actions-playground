@@ -18,17 +18,21 @@ jobs:
     timeout-minutes: 15
     if: github.event.pull_request.merged == true || ${{ inputs.dry-run-release }}
     runs-on: ubuntu-22.04
+    outputs:
+      affected: ${{ steps.get_images.outputs.affected }}    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       - uses: ./.github/actions/read-ref
       - id: print-affected
         run: |
-          cat affected.json | jq '{ projects: .projects[:3] }' > small-affected.json
+          cat affected.json | jq '.projects[:3] | { projects: [ {name: .[]} ] }'' > small-affected.json
+          JSON=$(cat small-affected.json)
+          echo "affected=${JSON}"  >> $GITHUB_OUTPUT
       - run: |
           cat small-affected.json | jq
       - id: use-affected
-        needs: print-affected
+        # needs: print-affected
         strategy:
           matrix: ${{ fromJson(small-affected.json) }}
         run: |
