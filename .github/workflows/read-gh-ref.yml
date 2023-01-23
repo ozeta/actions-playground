@@ -34,6 +34,7 @@ jobs:
       - id: use-affected
         # needs: print-affected
         strategy:
-          matrix: ${{ fromJson(small-affected.json) }}
+          matrix: 
+            projects: ${{ fromJson(small-affected.json) }}
         run: |
-          echo " running project: ${{ matrix }}"
+          echo " running project: ${{ matrix.projects }}"
