@@ -14,9 +14,7 @@ on:
         - error
   
 jobs:
-  read-ref:
-    timeout-minutes: 15
-    if: github.event.pull_request.merged == true || ${{ inputs.dry-run-release }}
+  build-matrix:
     runs-on: ubuntu-22.04
     outputs:
       affected: ${{ steps.get_images.outputs.affected }}    
@@ -31,10 +29,24 @@ jobs:
           echo "affected=${JSON}"  >> $GITHUB_OUTPUT
       - run: |
           cat small-affected.json | jq
-      - id: use-affected
-        # needs: print-affected
-        strategy:
-          matrix: 
-            projects: ${{ fromJson(small-affected.json) }}
+
         run: |
           echo " running project: ${{ matrix.projects }}"
+
+    
+  use-matrix:
+    read-ref:
+      needs: build-matrix
+      timeout-minutes: 15
+      runs-on: ubuntu-22.04
+      strategy:
+        max-parallel: 5
+        fail-fast: false
+        matrix: 
+          projects: ${{ fromJson(needs.build-matrix.outputs.affected) }}
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+        - id: use-affected
+          run: |
+            echo " running project: ${{ matrix.projects }}"
