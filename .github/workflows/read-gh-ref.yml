@@ -21,7 +21,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: ./.github/actions/read-ref
       - id: print-affected
         run: |
           cat affected.json | jq '.projects[:3] | { projects: [ {name: .[]} ] }'' > small-affected.json
