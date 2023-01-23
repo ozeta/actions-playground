@@ -35,18 +35,17 @@ jobs:
 
     
   use-matrix:
-    read-ref:
-      needs: build-matrix
-      timeout-minutes: 15
-      runs-on: ubuntu-22.04
-      strategy:
-        max-parallel: 5
-        fail-fast: false
-        matrix: 
-          projects: ${{ fromJson(needs.build-matrix.outputs.affected) }}
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
-        - id: use-affected
-          run: |
-            echo " running project: ${{ matrix.projects }}"
+    needs: build-matrix
+    timeout-minutes: 15
+    runs-on: ubuntu-22.04
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix: 
+        projects: ${{ fromJson(needs.build-matrix.outputs.affected) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - id: use-affected
+        run: |
+          echo " running project: ${{ matrix.projects }}"
