@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v3
       - id: print-affected
         run: |
-          cat affected.json | jq '.projects[:3] | { projects: [ {name: .[]} ] }'' > small-affected.json
+          cat affected.json | jq '.projects[:3] | { projects: [ {name: .[]} ] }' > small-affected.json
           JSON=$(cat small-affected.json)
           echo "affected=${JSON}"  >> $GITHUB_OUTPUT
       - run: |
