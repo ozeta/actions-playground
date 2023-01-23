@@ -24,7 +24,7 @@ jobs:
       - run: jq --version
       - id: print-affected
         run: |
-          cat affected.json | jq '.projects[:3] | { projects: [ {name: .[]} ] }' > small-affected.json
+          cat affected.json | jq -c '.projects[:3] | { projects: [ {name: .[]} ] }' > small-affected.json
       - run: |
           cat small-affected.json | jq
       - name: set matrix
