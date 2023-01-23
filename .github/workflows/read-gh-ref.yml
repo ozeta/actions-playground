@@ -31,3 +31,5 @@ jobs:
         needs: print-affected
         strategy:
           matrix: ${{ fromJson(small-affected.json) }}
+        run: |
+          echo " running project: ${{ matrix }}"
