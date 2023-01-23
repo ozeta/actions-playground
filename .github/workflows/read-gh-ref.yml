@@ -21,9 +21,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - run: jq --version
       - id: print-affected
         run: |
-          cat affected.json | jq '.projects[:3] | { projects: [ {name: .[]} ] }' > small-affected.json
+          cat affected.json | jq '.projects[:3]' > small-affected.json
           JSON=$(cat small-affected.json)
           echo "affected=${JSON}"  >> $GITHUB_OUTPUT
       - run: |
