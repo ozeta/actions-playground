@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-22.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}    
-      big-matrix: ${{ steps.set-matrix.outputs.big-matrix }}    
+      matrix1: ${{ steps.set-matrix.outputs.big-matrix }}    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -37,7 +37,7 @@ jobs:
           JSON_SMALL=$(cat small-affected.json)
           echo "matrix=${JSON_SMALL}" >> $GITHUB_OUTPUT
           JSON=$(cat big-affected.json)
-          echo "big-matrix=${JSON}" >> $GITHUB_OUTPUT
+          echo "matrix1=${JSON}" >> $GITHUB_OUTPUT
     
   use-small-matrix:
     needs: build-matrix
@@ -61,7 +61,7 @@ jobs:
     strategy:
       # max-parallel: 5
       fail-fast: false
-      big-matrix: ${{ fromJson(needs.build-matrix.outputs.big-matrix) }}
+      matrix1: ${{ fromJson(needs.build-matrix.outputs.matrix1) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
