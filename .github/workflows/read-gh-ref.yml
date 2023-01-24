@@ -36,8 +36,8 @@ jobs:
         run: |
           JSON_SMALL=$(cat small-affected.json)
           echo "matrix=${JSON_SMALL}" >> $GITHUB_OUTPUT
-          JSON=$(cat big-affected.json)
-          echo "matrix=${JSON}" >> $GITHUB_OUTPUT
+          # JSON=$(cat big-affected.json)
+          # echo "matrix=${JSON}" >> $GITHUB_OUTPUT
     
   use-small-matrix:
     needs: build-matrix
