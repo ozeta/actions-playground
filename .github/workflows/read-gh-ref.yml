@@ -29,13 +29,15 @@ jobs:
           cat affected.json | jq -c '.projects[]' > big-affected.json
       - run: |
           cat small-affected.json | jq
+      - run: |
+          cat big-affected.json | jq
       - name: set matrix
         id: set-matrix
         run: |
           JSON_SMALL=$(cat small-affected.json)
           echo "matrix=${JSON_SMALL}" >> $GITHUB_OUTPUT
           JSON=$(cat big-affected.json)
-          echo "big-matrix=${JSON}" >> $GITHUB_OUTPUT
+          echo "matrix=${JSON}" >> $GITHUB_OUTPUT
     
   use-small-matrix:
     needs: build-matrix
