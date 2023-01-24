@@ -37,7 +37,7 @@ jobs:
           JSON_SMALL=$(cat small-affected.json)
           echo "matrix=${JSON_SMALL}" >> $GITHUB_OUTPUT
           JSON=$(cat big-affected.json)
-          echo "matrix=${JSON}" >> $GITHUB_OUTPUT
+          echo "big-matrix=${JSON}" >> $GITHUB_OUTPUT
     
   use-small-matrix:
     needs: build-matrix
@@ -61,7 +61,7 @@ jobs:
     strategy:
       # max-parallel: 5
       fail-fast: false
-      matrix: ${{ fromJson(needs.build-matrix.outputs.big-matrix) }}
+      big-matrix: ${{ fromJson(needs.build-matrix.outputs.big-matrix) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
