@@ -26,7 +26,7 @@ jobs:
       - id: print-affected
         run: |
           cat affected.json | jq -c '.projects[:3] | { projects: [ {name: .[]} ] }' > small-affected.json
-          cat affected.json | jq -c '.projects[]' > big-affected.json
+          cat affected.json | jq -c '.projects[] | { projects: [ {name: .[]} ] }' > big-affected.json
       - run: |
           cat small-affected.json | jq
       - run: |
@@ -36,8 +36,8 @@ jobs:
         run: |
           JSON_SMALL=$(cat small-affected.json)
           echo "matrix=${JSON_SMALL}" >> $GITHUB_OUTPUT
-          # JSON=$(cat big-affected.json)
-          # echo "matrix=${JSON}" >> $GITHUB_OUTPUT
+          JSON=$(cat big-affected.json)
+          echo "matrix=${JSON}" >> $GITHUB_OUTPUT
     
   use-small-matrix:
     needs: build-matrix
@@ -54,17 +54,17 @@ jobs:
         run: |
           echo " running project: ${{ matrix }}"
 
-  # use-big-matrix:
-  #   needs: build-matrix
-  #   timeout-minutes: 15
-  #   runs-on: ubuntu-22.04
-  #   strategy:
-  #     # max-parallel: 5
-  #     fail-fast: false
-  #     matrix: ${{ fromJson(needs.build-matrix.outputs.big-matrix) }}
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-  #     - id: use-affected
-  #       run: |
-  #         echo " running project: ${{ matrix }}"
+  use-big-matrix:
+    needs: build-matrix
+    timeout-minutes: 15
+    runs-on: ubuntu-22.04
+    strategy:
+      # max-parallel: 5
+      fail-fast: false
+      matrix: ${{ fromJson(needs.build-matrix.outputs.big-matrix) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - id: use-affected
+        run: |
+          echo " running project: ${{ matrix }}"
