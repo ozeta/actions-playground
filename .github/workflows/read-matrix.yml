@@ -1,0 +1,47 @@
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  build-matrix:
+    runs-on: ubuntu-22.04
+    outputs:
+      affected: ${{ steps.get_images.outputs.affected }}    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/read-ref
+      - id: print-affected
+        run: |
+          cat affected.json | jq '.projects[:3] | { projects: [ {name: .[]} ] }'' > small-affected.json
+          JSON=$(cat small-affected.json)
+          echo "affected=${JSON}"  >> $GITHUB_OUTPUT
+      - run: |
+          cat small-affected.json | jq
+
+  use-matrix:
+    needs: build-matrix
+    timeout-minutes: 15
+    runs-on: ubuntu-22.04
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix: 
+        projects: ${{ fromJson(needs.build-matrix.outputs.affected) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - id: use-affected
+        run: |
+          echo " running project: ${{ matrix.projects }}"
