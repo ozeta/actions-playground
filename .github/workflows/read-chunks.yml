@@ -37,7 +37,8 @@ jobs:
     strategy:
       max-parallel: 5
       fail-fast: false
-      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
+      matrix: 
+        projects: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -51,7 +52,7 @@ jobs:
       - name: Run command
         run: |
           cat <<\EOF > projects.json
-          ${{ toJson(matrix.chunks.projects) }}
+          ${{ toJson(matrix.projects.chunks.projects) }}
           EOF
           projects=$(cat projects.json | jq -c |  sed 's:\[\(.*\)\]:\1:g' | sed 's@"@@g')
           echo "projects: $projects"
