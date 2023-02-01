@@ -1,0 +1,57 @@
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  build-matrix:
+    runs-on: ubuntu-22.04
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - run: jq --version
+      - run: |
+          cat chunks.json | jq
+      - name: set matrix
+        id: set-matrix
+        run: |
+          JSON=$(cat chunks.json)
+          echo "matrix=${JSON}" >> $GITHUB_OUTPUT
+    
+  use-matrix:
+    needs: build-matrix
+    timeout-minutes: 15
+    runs-on: ubuntu-22.04
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: |
+          echo -e "\033[31;1;4mDump matrix context\033[0m"
+          echo -e "$MATRIX_CONTEXT\n"
+        shell: bash
+      - name: Run command
+        run: |
+          cat <<\EOF > projects.json
+          ${{ toJson(matrix.chunks.projects) }}
+          EOF
+          projects=$(cat projects.json | jq -c |  sed 's:\[\(.*\)\]:\1:g' | sed 's@"@@g')
+          echo "projects: $projects"
