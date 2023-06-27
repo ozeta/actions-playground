@@ -1,6 +1,10 @@
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - develop
   push:
-    branches: [ "main" ]
+    branches: [ "ref*, main" ]
   workflow_dispatch:
     inputs:
       logLevel:
@@ -23,4 +27,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - uses: ./.github/actions/read-ref
-      - run: "echo outside, action is $ACTION_TAG"
+      - run: |
+          echo BRANCH NAME= ${{ github.ref_name || github.head_ref }}
