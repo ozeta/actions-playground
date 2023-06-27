@@ -21,13 +21,8 @@ on:
         - error
   
 jobs:
-  read-ref:
-    timeout-minutes: 15
-    if: github.event.pull_request.merged == true || ${{ inputs.dry-run-release }}
-    runs-on: ubuntu-22.04
+  print-branch:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - uses: ./.github/actions/read-ref
       - run: |
           echo BRANCH NAME= ${{ github.ref_name || github.head_ref }}
