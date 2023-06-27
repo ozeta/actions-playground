@@ -1,0 +1,32 @@
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - develop
+  push:
+    branches: 
+      - ref-naming-on-pr
+      - main
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+        - error
+  
+jobs:
+  print-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo HEAD OR REF NAME= ${{ github.head_ref || github.ref_name }}
+      - run: |
+          echo HEAD = ${{ github.head_ref }}
+      - run: |
+          echo REF = ${{ github.ref_name }}          
