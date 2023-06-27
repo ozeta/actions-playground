@@ -25,6 +25,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo BRANCH NAME= ${{ github.ref_name || github.head_ref }}
+          echo HEAD OR REF NAME= ${{ github.head_ref || github.ref_name }}
       - run: |
-          echo BRANCH NAME= ${{ github.head_ref }}
+          echo HEAD = ${{ github.head_ref }}
+      - run: |
+          echo REF = ${{ github.ref_name }}          
