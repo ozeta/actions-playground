@@ -26,3 +26,5 @@ jobs:
     steps:
       - run: |
           echo BRANCH NAME= ${{ github.ref_name || github.head_ref }}
+      - run: |
+          echo BRANCH NAME= ${{ github.head_ref }}
