@@ -4,7 +4,9 @@ on:
     branches:
       - develop
   push:
-    branches: [ "ref*, main" ]
+    branches: 
+      - ref-naming-on-pr
+      - main
   workflow_dispatch:
     inputs:
       logLevel:
