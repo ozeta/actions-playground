@@ -1,3 +1,0 @@
-env: 
-  PLAIN_CUSTOM_SECRET: ${{ secrets.CUSTOM_SECRET }}
-  VAR2: ciao

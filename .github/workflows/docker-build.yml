@@ -1,0 +1,17 @@
+on:
+  push:
+    branches: [ "docker-*" ]
+
+jobs:
+  read-ref:
+    timeout-minutes: 15
+    if: github.event.pull_request.merged == true || ${{ inputs.dry-run-release }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: false
+          tags: ozeta/app:latest
