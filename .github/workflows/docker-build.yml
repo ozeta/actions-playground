@@ -13,7 +13,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         env:
-          TAGS: "ozeta/app:latest ozeta/app:dev-latest"
+          TAGS: "ozeta/app:latest\nozeta/app:dev-latest"
         with:
           push: false
           tags: ${{ env.TAGS }}
