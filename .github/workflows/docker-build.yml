@@ -12,9 +12,9 @@ jobs:
         uses: actions/checkout@v3
       - name: curl
         run: |
-          echo "JSON_RESPONSE<<$EOF" >> "$GITHUB_ENV"
+          echo "JSON_RESPONSE<<EOF" >> "$GITHUB_ENV"
           curl https://example.com >> "$GITHUB_ENV"
-          echo "$EOF" >> "$GITHUB_ENV"
+          echo "EOF" >> "$GITHUB_ENV"
       - name: print curl
         run: echo $JSON_RESPONSE
       - name: set env
