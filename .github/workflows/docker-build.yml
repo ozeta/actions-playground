@@ -13,7 +13,7 @@ jobs:
       - name: set env
         run: |
           TAGS="ozeta/app:latest '\n'
-          ozeta/app:dev-latest '\n'"
+                ozeta/app:dev-latest '\n'"
           echo "TAGS<<EOF" >> $GITHUB_ENV
     
           # here we can place the command that will generate multi-line text
