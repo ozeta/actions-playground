@@ -19,9 +19,11 @@ jobs:
 #       run: echo $JSON_RESPONSE
       - name: set env
         run: |
-
+          MULTILINE="tag1:latest \n
+                     tag2:latest \n
+                     tag3:latest"
           echo "TAGS<<EOF" >> "$GITHUB_ENV"
-          echo "ozeta/app:latest\nozeta/app:dev-latest" >> "$GITHUB_ENV"
+          echo "$MULTILINE" >> "$GITHUB_ENV"
           echo "EOF" >> "$GITHUB_ENV"
 #          echo "TAGS=ozeta/app:latest\nozeta/app:dev-latest" >> $GITHUB_ENV
       - name: Build and push
