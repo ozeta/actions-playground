@@ -12,7 +12,14 @@ jobs:
         uses: actions/checkout@v3
       - name: set env
         run: |
-          echo "TAGS=ozeta/app:latest\nozeta/app:dev-latest" >> $GITHUB_ENV
+          TAGS="ozeta/app:latest \n
+          ozeta/app:dev-latest \n"
+          echo "TAGS<<EOF" >> $GITHUB_ENV
+    
+          # here we can place the command that will generate multi-line text
+          echo $TAGS >> $GITHUB_ENV 
+          echo "EOF" >> $GITHUB_ENV
+#          echo "TAGS=ozeta/app:latest\nozeta/app:dev-latest" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v4
 #        env:
