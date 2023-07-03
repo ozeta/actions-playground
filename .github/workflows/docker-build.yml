@@ -10,21 +10,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: curl
-        run: |
-          echo "JSON_RESPONSE<<EOF" >> "$GITHUB_ENV"
-          curl https://example.com >> "$GITHUB_ENV"
-          echo "EOF" >> "$GITHUB_ENV"
-      - name: print curl
-        run: echo $JSON_RESPONSE
+#     - name: curl
+#       run: |
+#         echo "JSON_RESPONSE<<EOF" >> "$GITHUB_ENV"
+#         curl https://example.com >> "$GITHUB_ENV"
+#         echo "EOF" >> "$GITHUB_ENV"
+#     - name: print curl
+#       run: echo $JSON_RESPONSE
       - name: set env
         run: |
-          TAGS="ozeta/app:latest\nozeta/app:dev-latest\n"
-          echo "TAGS<<EOF" >> $GITHUB_ENV
-    
-          # here we can place the command that will generate multi-line text
-          echo $TAGS >> $GITHUB_ENV 
-          echo "EOF" >> $GITHUB_ENV
+
+          echo "TAGS<<EOF" >> "$GITHUB_ENV"
+          echo "ozeta/app:latest\nozeta/app:dev-latest" >> "$GITHUB_ENV"
+          echo "EOF" >> "$GITHUB_ENV"
 #          echo "TAGS=ozeta/app:latest\nozeta/app:dev-latest" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v4
