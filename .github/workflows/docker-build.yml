@@ -15,6 +15,9 @@ jobs:
           MULTILINE="tag1:latest
                      tag2:latest
                      tag3:latest"
+
+          MULTILINE="$MULTILINE
+                     new-row"
           echo "TAGS<<EOF" >> "$GITHUB_ENV"
           echo "$MULTILINE" >> "$GITHUB_ENV"
           echo "EOF" >> "$GITHUB_ENV"
