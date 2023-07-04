@@ -23,6 +23,7 @@ jobs:
           echo "$MULTILINE" >> "$GITHUB_ENV"
           echo "EOF" >> "$GITHUB_ENV"
           echo "push=false" >> "$GITHUB_OUTPUT"
+          echo "pushb="false"" >> "$GITHUB_OUTPUT"
 #          echo "TAGS=ozeta/app:latest\nozeta/app:dev-latest" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v4
@@ -30,4 +31,18 @@ jobs:
 #          TAGS: "ozeta/app:latest\nozeta/app:dev-latest"
         with:
           push: ${{ steps.set-env.outputs.push }}
+          tags: ${{ env.TAGS }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+#        env:
+#          TAGS: "ozeta/app:latest\nozeta/app:dev-latest"
+        with:
+          push: "${{ steps.set-env.outputs.push }}"
+          tags: ${{ env.TAGS }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+#        env:
+#          TAGS: "ozeta/app:latest\nozeta/app:dev-latest"
+        with:
+          push: ${{ steps.set-env.outputs.pushb }}
           tags: ${{ env.TAGS }}
