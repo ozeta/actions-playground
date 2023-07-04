@@ -29,5 +29,5 @@ jobs:
 #        env:
 #          TAGS: "ozeta/app:latest\nozeta/app:dev-latest"
         with:
-          push: ${{ fromJson(steps.set-env.outputs.push) }}}
+          push: ${{ steps.set-env.outputs.push }}
           tags: ${{ env.TAGS }}
