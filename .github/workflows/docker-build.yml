@@ -11,6 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: set env
+        id: set-env
         run: |
           MULTILINE="tag1:latest
                      tag2:latest
@@ -21,11 +22,12 @@ jobs:
           echo "TAGS<<EOF" >> "$GITHUB_ENV"
           echo "$MULTILINE" >> "$GITHUB_ENV"
           echo "EOF" >> "$GITHUB_ENV"
+          echo "push=false" >> "$GITHUB_OUTPUT"
 #          echo "TAGS=ozeta/app:latest\nozeta/app:dev-latest" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v4
 #        env:
 #          TAGS: "ozeta/app:latest\nozeta/app:dev-latest"
         with:
-          push: false
+          push: ${{ steps.set-env.outputs.push }}}
           tags: ${{ env.TAGS }}
