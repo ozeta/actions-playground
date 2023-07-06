@@ -5,12 +5,12 @@ on:
     inputs:
       devel:
         description: 'enable pipeline devel'
-        required: false
+        required: true
         type: boolean
         default: false
       dry-run:
         description: 'enable dry-run devel'
-        required: false
+        required: true
         type: boolean
         default: false
 
@@ -25,5 +25,5 @@ jobs:
     uses: ./.github/workflows/reusable-workflow.yml
     secrets: inherit
     with:
-      devel: ${{ inputs.devel || 'false' }}
-      dry-run: ${{ inputs.dry-run || 'false' }}
+      devel: ${{ inputs.devel }}
+      dry-run: ${{ inputs.dry-run  }}
