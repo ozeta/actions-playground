@@ -14,6 +14,7 @@ jobs:
       - uses: ./.github/actions/read-ref
       - id: login-ecr
         run: |
+          echo "::debug::Set the Octocat variable"
           echo registry=pippo >> $GITHUB_OUTPUT
           echo IMAGE_NAME=app >> $GITHUB_ENV
           echo IMAGE_TAG=latest >> $GITHUB_ENV
