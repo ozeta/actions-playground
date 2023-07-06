@@ -31,7 +31,7 @@ jobs:
                       quay.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
                       $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
           set -x;
-          if [[ "${{ contains(github.event.head_commit.message , '[ci:release') }} == "true" ]]; then
+          if [[ "true" == "true" ]]; then
             MULTILINE="$MULTILINE
                         ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
                         quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
