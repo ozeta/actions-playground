@@ -18,6 +18,7 @@ jobs:
           echo "::error file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
           echo "::warning file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
           echo "::add-mask::Mona The Octocat"
+          echo "::workflow-command parameter1={data},parameter2={data}::{command value}"
 
           echo registry=pippo >> $GITHUB_OUTPUT
           echo IMAGE_NAME=app >> $GITHUB_ENV
