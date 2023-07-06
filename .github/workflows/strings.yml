@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           AWS_ECR_REGISTRY="${{ steps.login-ecr.outputs.registry }}"
-          if [[ ${{ inputs.dry-run }} == 'true' ]]; then
+          if [[  'true' ]]; then
             echo "mocking ecr login"
             AWS_ECR_REGISTRY=mocked.ecr.io/alfresco
           fi
