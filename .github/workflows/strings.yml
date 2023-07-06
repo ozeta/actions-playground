@@ -15,6 +15,10 @@ jobs:
       - id: login-ecr
         run: |
           echo "::debug::Set the Octocat variable"
+          echo "::error file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
+          echo "::warning file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
+          echo "::add-mask::Mona The Octocat"
+
           echo registry=pippo >> $GITHUB_OUTPUT
           echo IMAGE_NAME=app >> $GITHUB_ENV
           echo IMAGE_TAG=latest >> $GITHUB_ENV
