@@ -5,8 +5,8 @@ on:
       devel:
         description: 'enable pipeline devel'
         required: true
-        type: boolean
-        default: false
+        type: string
+        default: "false"
   push:
     branches:
       - input-flag
