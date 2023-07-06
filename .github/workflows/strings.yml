@@ -26,16 +26,19 @@ jobs:
             echo "mocking ecr login"
             AWS_ECR_REGISTRY=mocked.ecr.io/alfresco
           fi
-          # will build default_image_name:HXOR-563-develop or default_image_name:HXOR-563-develop-patch-hxor-11-7.11.0
-          MULTILINE="ghcr.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-                      quay.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-                      $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
-
-          if [[ $"BRANCH_NAME" == "HXOR-563-develop" && ${{ contains(github.event.head_commit.message , '[ci:release') }} == "false ]]; then
+          if [[ $BRANCH_NAME == "HXOR-563-develop" && ${{ contains(github.event.head_commit.message , '[ci:release') }} == "false" ]]; then
             MULTILINE="$MULTILINE
-            ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
+                        ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
                         quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
                         $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}"
+          fi
+
+          # on HXOR-563-develop AND HXOR-563-develop-patch*, on release, will build image_name:HXOR-563-develop-7.11.0
+          if [[ ${{ contains(github.event.head_commit.message , '[ci:release') }} == "true" ]]; then
+            MULTILINE="$MULTILINE
+                        ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
+                        quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
+                        $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}"
           fi
 
           echo "$MULTILINE"
