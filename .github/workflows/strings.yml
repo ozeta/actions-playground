@@ -1,0 +1,55 @@
+on:
+  push:
+    branches: [ "strings" ]
+
+  
+jobs:
+  read-ref:
+    timeout-minutes: 15
+    if: github.event.pull_request.merged == true || ${{ inputs.dry-run-release }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/read-ref
+      - id: login-ecr
+        run: |
+          echo registry=pippo >> $GITHUB_OUTPUT
+          echo IMAGE_NAME=app >> $GITHUB_ENV
+          echo IMAGE_TAG=latest >> $GITHUB_ENV
+          echo APP_RELEASE_TAG=release-tag >> $GITHUB_ENV
+      - name: Set docker tag list
+        shell: bash
+        run: |
+          AWS_ECR_REGISTRY="${{ steps.login-ecr.outputs.registry }}"
+          if [[ ${{ inputs.dry-run }} == 'true' ]]; then
+            echo "mocking ecr login"
+            AWS_ECR_REGISTRY=mocked.ecr.io/alfresco
+          fi
+          set -x;
+
+          # will build default_image_name:HXOR-563-develop or default_image_name:HXOR-563-develop-patch-hxor-11-7.11.0
+          MULTILINE="ghcr.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            quay.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
+
+          if [[ $BRANCH_NAME == "HXOR-563-develop" && "${{ contains(github.event.head_commit.message , '[ci:release') }} == "false" ]]; then
+          # on HXOR-563-develop but NOT on release, will build image_name:HXOR-563-develop-12345
+            MULTILINE="$MULTILINE
+                        ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
+                        quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
+                        $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}"
+          fi
+
+          if [[ "${{ contains(github.event.head_commit.message , '[ci:release') }} == "true" ]]; then
+          # on HXOR-563-develop AND HXOR-563-develop-patch*, on release, will build image_name:HXOR-563-develop-7.11.0
+            MULTILINE="$MULTILINE
+                        ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
+                        quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
+                        $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}"
+          fi
+
+          echo "TAG_LIST<<EOF" >> "$GITHUB_ENV"
+          echo "$MULTILINE" >> "$GITHUB_ENV"
+          echo "EOF" >> "$GITHUB_ENV"
+          echo "Docker image will have these tags: $MULTILINE"
