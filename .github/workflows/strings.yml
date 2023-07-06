@@ -30,14 +30,12 @@ jobs:
           MULTILINE="ghcr.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
                       quay.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
                       $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
-          set -x;
-          if [[ "true" == "true" ]]; then
+
+          if [[ $BRANCH_NAME == "HXOR-563-develop" && "${{ contains(github.event.head_commit.message , '[ci:release') }} == "false" ]]; then
             MULTILINE="$MULTILINE
-                        ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
-                        quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
-                        $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}"
+                        ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
+                        quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
+                        $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}"
           fi
-
-
 
           echo "$MULTILINE"
