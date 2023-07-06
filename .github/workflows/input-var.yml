@@ -22,7 +22,7 @@ on:
 jobs:
 
   build-deploy-and-release-docker-images:
-    uses: ./.github/workflows/deploy_and_release_docker_images.yml
+    uses: ./.github/workflows/reusable-workflow.yml
     secrets: inherit
     with:
       devel: ${{ inputs.devel }}
