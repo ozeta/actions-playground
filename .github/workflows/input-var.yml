@@ -1,29 +1,19 @@
-name: release-workflow
-
 on:
   workflow_call:
     inputs:
       devel:
         description: 'enable pipeline devel'
         required: true
-        type: string
-        default: "false"
-      dry-run:
-        description: 'enable dry-run devel'
-        required: true
-        type: string
-        default: "false"
-
+        type: boolean
+        default: false
   push:
     branches:
       - input-flag
-
-
-jobs:
-
-  build-deploy-and-release-docker-images:
-    uses: ./.github/workflows/reusable-workflow.yml
-    secrets: inherit
-    with:
-      devel: false
-      dry-run: false
+      jobs:
+        job:
+          runs-on: ubuntu-22.04
+          steps:
+            - name: output flags
+              id: set-matrix
+              run: |
+                  echo devel=${{ inputs.devel }}
