@@ -1,0 +1,25 @@
+name: "reusable"
+
+on:
+  workflow_call:
+    inputs:
+      devel:
+        description: 'enable pipeline devel'
+        required: false
+        type: boolean
+        default: true
+      dry-run:
+        description: 'enable pipeline dry-run'
+        required: false
+        type: boolean
+
+jobs:
+
+  job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: output flags
+        id: set-matrix
+        run: |
+            echo devel= ${{ inputs.devel }}
+            echo dry-run= ${{ inputs.dry-run }}

@@ -1,0 +1,29 @@
+name: release-workflow
+
+on:
+  workflow_call:
+    inputs:
+      devel:
+        description: 'enable pipeline devel'
+        required: false
+        type: boolean
+        default: false
+      dry-run:
+        description: 'enable dry-run devel'
+        required: false
+        type: boolean
+        default: false
+
+  push:
+    branches:
+      - main
+
+
+jobs:
+
+  build-deploy-and-release-docker-images:
+    uses: ./.github/workflows/deploy_and_release_docker_images.yml
+    secrets: inherit
+    with:
+      devel: ${{ inputs.devel }}
+      dry-run: ${{ inputs.dry-run }}
