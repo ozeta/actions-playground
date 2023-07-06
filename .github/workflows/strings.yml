@@ -41,15 +41,3 @@ jobs:
                         $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}"
           fi
 
-          if [[ "${{ contains(github.event.head_commit.message , '[ci:release') }} == "true" ]]; then
-          # on HXOR-563-develop AND HXOR-563-develop-patch*, on release, will build image_name:HXOR-563-develop-7.11.0
-            MULTILINE="$MULTILINE
-                        ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
-                        quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}
-                        $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ env.APP_RELEASE_TAG }}"
-          fi
-
-          echo "TAG_LIST<<EOF" >> "$GITHUB_ENV"
-          echo "$MULTILINE" >> "$GITHUB_ENV"
-          echo "EOF" >> "$GITHUB_ENV"
-          echo "Docker image will have these tags: $MULTILINE"
