@@ -10,11 +10,11 @@ on:
   push:
     branches:
       - input-flag
-      jobs:
-        job:
-          runs-on: ubuntu-22.04
-          steps:
-            - name: output flags
-              id: set-matrix
-              run: |
-                  echo devel=${{ inputs.devel }}
+jobs:
+  job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: output flags
+        id: set-matrix
+        run: |
+            echo devel=${{ inputs.devel }}
