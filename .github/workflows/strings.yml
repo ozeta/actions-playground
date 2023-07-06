@@ -12,6 +12,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - uses: ./.github/actions/read-ref
+      - name: Get author name
+        id: author
+        run: echo "::set-output name=author::$(git show -s --format=%an)"      
+      - name: Log levels
+        run: |
+          echo "::debug::This is a debug message"
+          echo "This is an info message"
+          echo "::warning::This is a warning"
+          echo "::error::This is an error"    
+      - name: Log grouping
+        run: |
+          echo "::group::Group name"
+          echo "Log entry"
+          echo "::warning::Warning message"
+          echo "::endgroup::"
+          echo "Outside the group"    
+      - name: Mask sensitive data
+        run: |
+          echo "::add-mask::password123"
+          echo "My password is password123"
+          echo "::add-mask::$SUPER_SECRET"
+          echo "Here's a secret for you: $SUPER_SECRET"    
+        env:
+          SUPER_SECRET: The cake is a lie.
+
       - id: login-ecr
         run: |
           echo "::debug::Set the Octocat variable"
