@@ -31,8 +31,8 @@ jobs:
                       quay.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
                       $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
           set -x;
-          if [[ $BRANCH_NAME == "strings" && "${{ contains(github.event.head_commit.message , '[ci:release') }} == "false" ]]; then
           # on HXOR-563-develop but NOT on release, will build image_name:HXOR-563-develop-12345
+          if [[ $BRANCH_NAME == "strings" && "${{ contains(github.event.head_commit.message , '[ci:release') }} == "false" ]]; then
             MULTILINE="$MULTILINE
                         ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
                         quay.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
