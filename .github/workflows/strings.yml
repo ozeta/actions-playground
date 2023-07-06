@@ -26,14 +26,12 @@ jobs:
             echo "mocking ecr login"
             AWS_ECR_REGISTRY=mocked.ecr.io/alfresco
           fi
-          set -x;
-
           # will build default_image_name:HXOR-563-develop or default_image_name:HXOR-563-develop-patch-hxor-11-7.11.0
           MULTILINE="ghcr.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-            quay.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-            $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
-
-          if [[ $BRANCH_NAME == "HXOR-563-develop" && "${{ contains(github.event.head_commit.message , '[ci:release') }} == "false" ]]; then
+                      quay.io/alfresco/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+                      $AWS_ECR_REGISTRY/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
+          set -x;
+          if [[ $BRANCH_NAME == "strings" && "${{ contains(github.event.head_commit.message , '[ci:release') }} == "false" ]]; then
           # on HXOR-563-develop but NOT on release, will build image_name:HXOR-563-develop-12345
             MULTILINE="$MULTILINE
                         ghcr.io/alfresco/${{ env.IMAGE_NAME }}:HXOR-563-develop-${{ github.run_id }}
