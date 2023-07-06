@@ -25,5 +25,5 @@ jobs:
     uses: ./.github/workflows/reusable-workflow.yml
     secrets: inherit
     with:
-      devel: ${{ github.event.inputs.devel }}
-      dry-run: "false"
+      devel: false
+      dry-run: false
