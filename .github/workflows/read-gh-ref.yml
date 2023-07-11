@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "star-escape" ]
   workflow_dispatch:
     inputs:
       logLevel:
