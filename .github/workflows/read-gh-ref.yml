@@ -26,4 +26,4 @@ jobs:
           echo "$MSG"
           echo COMMIT_MESSAGE="$MSG" >> "$GITHUB_ENV"
       - run: |
-          echo $COMMIT_MESSAGE
+          echo "$COMMIT_MESSAGE"
