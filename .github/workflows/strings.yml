@@ -14,5 +14,6 @@ jobs:
       - uses: ./.github/actions/read-ref
       - name: commit msg
         run: |
-          echo $ZSH_NAME $ZSH_VERSION
+          MSG=$(git log --format=%B -n 1 0716190c31c484ae6ca321c44b0f9180724de74c)
+          echo "COMMIT_MESSAGE=$MSG" > $GITHUB_ENV
         shell: zsh {0}
