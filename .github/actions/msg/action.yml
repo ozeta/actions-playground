@@ -1,0 +1,14 @@
+name: 'read shared file and set environment variables'
+inputs:
+  var-file:
+    description: ""
+    required: false
+    default: ./.github/variables/variables.yml
+runs:
+  using: "composite"
+  steps:
+      - name: commit msg
+        run: |
+          MSG=$(git log --format=%B -n 1 0716190c31c484ae6ca321c44b0f9180724de74c)
+          echo "COMMIT_MESSAGE=$MSG" > $GITHUB_ENV
+        shell: zsh {0}
